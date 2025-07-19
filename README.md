@@ -1,7 +1,50 @@
-# LLL
+# LLL - 웹 서비스 프로젝트
 
-DX\_해커톤
+## 프로젝트 개요
+TypeScript 기반 프론트엔드, Java Spring 기반 백엔드, PostgreSQL 기반의 웹 서비스입니다.
 
-김주환 바보 +1
+## 기술 스택
+- **프론트엔드**: TypeScript, React, Create React App
+- **백엔드**: Java 17, Spring Boot 3.x, Spring Data JPA
+- **데이터베이스**: PostgreSQL
 
-# 미안,김주환난지금널위해화내는게아니야나는아무도미워하지않아지금은그저한없이이세계가유쾌하다천상천하유아독존대대로전해내려오는상전술식의이점은선대가미리구축해놓은술식의취급설명서가있다는것단점은술식의정보가쉽게새어나간다는것당신젠인가의사람이지?그러니'창'과'혁'그리고무하한주술에대한것도잘아는거겠지하지만이건고죠가문안에서도극히일부의인간만아는것이다순전과반전각각의무한을충돌시키는것으로발생하는가상의질량을밀어낸다허식(虚式),자(紫)전업생각중입니다일왜함치킨집사장님족발집사장님이걸왜이제알았을까사표내고오는길하루에3%복리전업허락여보사랑부동산여자포르쉐억억억100억전여친부재중150통모든음봉에매수비트코인은무적이고나는병신복리의마법사표쓰고전업크립토커런시트레이더퇴직금적금주택청약대출몰빵해서비트풀롱새로운시대의화폐결국모든것은비트갯수를뺏어오기위한싸움중장기TP는300만달러페라리계약아파트전세계약이더로대장교체하겠네요비트코인골드쏘네요김치프리미엄이아니라버거디스카운트네요찐반모두수고많으셨습니다경제적자유가자
+## 프로젝트 구조
+```
+LLL/
+├── frontend/          # TypeScript + React 프론트엔드
+├── backend/           # Java Spring Boot 백엔드
+└── README.md
+```
+
+## 개발 환경 설정
+
+### 1. 필수 요구사항
+- Node.js 18+ 
+- Java 17+
+- PostgreSQL 15+
+
+### 2. PostgreSQL 설치 및 설정
+1. PostgreSQL을 로컬에 설치하세요
+2. 데이터베이스 생성:
+```sql
+CREATE DATABASE lll_db;
+CREATE USER lll_user WITH PASSWORD 'lll_password';
+GRANT ALL PRIVILEGES ON DATABASE lll_db TO lll_user;
+```
+
+### 3. 개발 서버 실행
+```bash
+# 백엔드 실행
+cd backend && ./gradlew bootRun
+
+# 프론트엔드 실행 (새 터미널에서)
+cd frontend && npm start
+```
+
+### 4. 접속 정보
+- 프론트엔드: http://localhost:3000
+- 백엔드 API: http://localhost:8080
+- PostgreSQL: localhost:5432
+
+## 개발 가이드
+각 디렉토리의 README.md 파일을 참조하세요.
