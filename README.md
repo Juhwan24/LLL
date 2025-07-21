@@ -43,7 +43,7 @@ cd frontend && npm start
 
 ### 4. 접속 정보
 - 프론트엔드: http://localhost:3000
-- 백엔드 API: http://localhost:8080
+- 백엔드 API: https://diligent-analysis-production.up.railway.app/
 - PostgreSQL: localhost:5432
 
 ## 개발 가이드
