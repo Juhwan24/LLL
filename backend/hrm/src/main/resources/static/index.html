@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>GPT 테스트</title>
+</head>
+<body>
+  <h1>GPT 질문하기</h1>
+  <input id="prompt" type="text" placeholder="GPT에게 질문하세요" size="50">
+  <button onclick="askGPT()">보내기</button>
+
+  <h3>응답:</h3>
+  <pre id="response">GPT 응답 ->>>> </pre>
+
+  <script>
+    async function askGPT() {
+      const prompt = document.getElementById("prompt").value;
+
+      const response = await fetch("http://localhost:8080/api/gpt/question", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ question: prompt }) 
+      });
+
+      const data = await response.json();
+      document.getElementById("response").innerText =
+        `질문: ${prompt}\n\n답변: ${data.answer}\n\n상태: ${data.message}`;
+    }
+  </script>
+</body>
+</html>

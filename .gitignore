@@ -1,0 +1,20 @@
+# Environment variables
+/backend/hrm/.env
+
+# Build files
+/backend/hrm/build/
+/backend/hrm/.gradle/
+
+# IDE files
+.idea/
+*.iml
+*.iws
+
+# Log files
+*.log
+
+# Local properties
+/backend/hrm/local.properties 
+# Spring Boot properties
+/backend/hrm/src/main/resources/application.properties 
+.env
