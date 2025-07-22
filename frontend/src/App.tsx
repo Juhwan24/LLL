@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import EmployerMain from './pages/business/employer/main';
+import EmployerMain from './pages/main';
 
 const App: React.FC = () => {
   return (
