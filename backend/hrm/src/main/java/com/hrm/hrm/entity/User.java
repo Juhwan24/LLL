@@ -1,34 +1,44 @@
 package com.hrm.hrm.entity;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.UUID;
 
-import java.sql.Timestamp;
-
-/**
- * 사용자 정보를 담는 엔티티 클래스
- */
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
-@Table(name = "app_users") // 'user'는 PostgreSQL에서 예약어일 수 있으므로 'app_users'로 지정
+@Table(name = "user")
 public class User {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // DB가 ID를 자동으로 생성하도록 설정
-    private Long id;
+    private UUID id;
 
-    @Column(nullable = false, length = 50)
-    private String username;
+    @Column(name = "login_id", nullable = false, unique = true)
+    private String loginId;
 
-    @Column(nullable = false, unique = true, length = 100)
+    @Column(nullable = false)
+    private String password;
+
+    @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false, unique = true)
     private String email;
 
-    @CreationTimestamp // 데이터 생성 시 자동으로 현재 시간 기록
-    @Column(name = "created_at", updatable = false)
-    private Timestamp createdAt;
+    private LocalDate birthDate;
+
+    @Column(name = "user_type", nullable = false)
+    private String userType; // CORPORATE or INDIVIDUAL
+
+    @Column(name = "email_verified")
+    private boolean emailVerified = false;
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    @OneToMany(mappedBy = "user")
+    private List<UserTeam> userTeams;
 } 
