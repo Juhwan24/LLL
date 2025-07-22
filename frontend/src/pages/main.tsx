@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import ResponsiveTeamList from '../../../components/ResponsiveTeamList';
-import ChatBot from '../../../components/ChatBot';
-import ChatBotFloatingButton from '../../../components/ChatBotFloatingButton';
+import ResponsiveTeamList from '../components/ResponsiveTeamList';
+import ChatBot from '../components/ChatBot';
+import ChatBotFloatingButton from '../components/ChatBotFloatingButton';
 import type { FC } from 'react';
 
 const MOBILE_MAX_WIDTH = 768;
