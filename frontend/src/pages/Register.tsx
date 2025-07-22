@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import { useNavigate } from 'react-router-dom';
 
 const Register: React.FC = () => {
   const [selected, setSelected] = useState<'company' | 'personal' | null>(null);
@@ -65,6 +66,8 @@ const Register: React.FC = () => {
     },
   };
 
+  const navigate = useNavigate();
+
   return (
     <div
       style={{
@@ -83,7 +86,11 @@ const Register: React.FC = () => {
     >
       {/* 왼쪽 위에 h4 Typography */}
       <Box sx={{ width: '100%', display: 'flex', flexDirection: 'row', alignItems: 'flex-start', p: 5 }}>
-        <Typography variant="h4" sx={{ flexGrow: 1, color: '#FFFFFF', fontWeight: 800 }}>
+        <Typography
+          variant="h4"
+          sx={{ flexGrow: 1, color: '#FFFFFF', fontWeight: 800, cursor: 'pointer' }}
+          onClick={() => navigate('/')}
+        >
           HRM
         </Typography>
       </Box>
@@ -275,7 +282,7 @@ const Register: React.FC = () => {
                   onClick={() => setAddCompany(true)}
                 >
                   내 기업 추가하기
-                </Typography>
+      </Typography>
               </Box>
             </>
           )}
@@ -332,7 +339,7 @@ const Register: React.FC = () => {
                   }}
                 >
                   확인
-                </Button>
+        </Button>
               </Box>
             </>
           )}
@@ -355,10 +362,10 @@ const Register: React.FC = () => {
               <Button variant="contained" color="primary" fullWidth sx={{ borderRadius: 2, mt: 2, backgroundColor: '#FF9100', '&:hover': { backgroundColor: '#FF9100' }, '&:active': { backgroundColor: '#FF9100' } }}>회원가입</Button>
             </>
           )}
-        </Box>
-      </Container>
+    </Box>
+  </Container>
     </div>
-  );
+);
 };
 
 export default Register; 
