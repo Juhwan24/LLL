@@ -9,15 +9,21 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.AccessLevel;
 
 @Entity
-@Table(name = "user")
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder
+@Table(name = "users")
 public class User {
     @Id
     private UUID id;
-
-    @Column(name = "login_id", nullable = false, unique = true)
-    private String loginId;
 
     @Column(nullable = false)
     private String password;
@@ -41,4 +47,17 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<UserTeam> userTeams;
+
+    // 정적 팩토리 메서드
+    public static User createUser(String name, String email, String password, String userType, boolean emailVerified, LocalDateTime createdAt) {
+        return User.builder()
+                .id(UUID.randomUUID())
+                .name(name)
+                .email(email)
+                .password(password)
+                .userType(userType)
+                .emailVerified(emailVerified)
+                .createdAt(createdAt)
+                .build();
+    }
 } 
