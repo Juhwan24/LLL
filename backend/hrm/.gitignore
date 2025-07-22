@@ -52,4 +52,4 @@ temp/
 # 테스트/임시 파일
 *.swp
 *.swo
-*~
+*~src/main/resources/application.properties

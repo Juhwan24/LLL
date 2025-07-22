@@ -1,32 +1,65 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <title>GPT 테스트</title>
+  <meta charset="UTF-8" />
+  <title>Google OAuth2 & 이메일 인증코드 테스트</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin-top: 100px; }
+    .google-btn {
+      background: #4285f4;
+      color: white;
+      border: none;
+      padding: 16px 32px;
+      font-size: 18px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .google-btn:hover { background: #357ae8; }
+    .input-box { margin: 30px auto; max-width: 400px; }
+    input[type=email] { padding: 8px; font-size: 16px; width: 250px; }
+    button.send-btn { margin-left: 12px; padding: 8px 16px; font-size: 16px; }
+    .result { margin-top: 20px; color: green; }
+  </style>
 </head>
 <body>
-  <h1>GPT 질문하기</h1>
-  <input id="prompt" type="text" placeholder="GPT에게 질문하세요" size="50">
-  <button onclick="askGPT()">보내기</button>
+  <h1>Google OAuth2 로그인 테스트</h1>
+  <button class="google-btn" onclick="window.location.href='/api/auth/google'">
+    Google로 로그인
+  </button>
 
-  <h3>응답:</h3>
-  <pre id="response">GPT 응답 ->>>> </pre>
+  <h2 style="margin-top:60px;">이메일 인증코드 발송</h2>
+  <div class="input-box">
+    <input type="email" id="email" placeholder="이메일 입력" />
+    <button class="send-btn" onclick="sendCode()">인증코드 보내기</button>
+  </div>
+  <div id="result" class="result"></div>
 
   <script>
-    async function askGPT() {
-      const prompt = document.getElementById("prompt").value;
-
-      const response = await fetch("http://localhost:8080/api/gpt/question", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ question: prompt }) 
+    function sendCode() {
+      const email = document.getElementById('email').value;
+      const resultDiv = document.getElementById('result');
+      resultDiv.textContent = '';
+      if (!email) {
+        resultDiv.textContent = '이메일을 입력하세요.';
+        return;
+      }
+      fetch('/api/auth/send-code', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          resultDiv.textContent = `인증코드가 전송되었습니다! (테스트용: ${data.code})`;
+        } else {
+          resultDiv.textContent = '전송 실패: ' + data.error;
+        }
+      })
+      .catch(() => {
+        resultDiv.textContent = '에러 발생';
       });
-
-      const data = await response.json();
-      document.getElementById("response").innerText =
-        `질문: ${prompt}\n\n답변: ${data.answer}\n\n상태: ${data.message}`;
     }
   </script>
 </body>
