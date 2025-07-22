@@ -63,7 +63,7 @@ const Header: React.FC<HeaderProps> = ({ activeSection }) => {
                 color: activeSection === item.id ? '#FF9100' : '#fff',
                 borderBottom: activeSection === item.id ? '2px solid #FF9100' : 'none',
                 borderRadius: 0,
-                fontWeight: activeSection === item.id ? 600 : 600,
+                fontWeight: 600,
                 transition: 'color 0.2s, border-bottom 0.2s'
               }}
             >
