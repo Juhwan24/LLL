@@ -3,11 +3,18 @@ package com.hrm.hrm.util;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import java.util.Date;
 
+@Component
 public class JwtUtil {
-    private static final String SECRET_KEY = "testSecretKey20230327testSecretKey20230327testSecretKey20250723123";
+    private static String SECRET_KEY;
     private static final long EXPIRATION_MS = 60 * 60 * 1000; // 1시간
+
+    public JwtUtil(@Value("${jwt.secret.key}") String secretKey) {
+        JwtUtil.SECRET_KEY = secretKey;
+    }
 
     public static String createToken(String email, String name) {
         return Jwts.builder()
