@@ -1,37 +1,61 @@
-HELP.md
-.gradle
-build/
-!gradle/wrapper/gradle-wrapper.jar
-!**/src/main/**/build/
-!**/src/test/**/build/
+# Java & Spring Boot
+/build/
+/bin/
+/target/
+*.class
+*.jar
+*.war
+*.ear
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-bin/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
-
-### IntelliJ IDEA ###
-.idea
-*.iws
+# IDE
+.idea/
 *.iml
 *.ipr
-out/
-!**/src/main/**/out/
-!**/src/test/**/out/
+*.iws
+*.vscode/
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
+# OS
+.DS_Store
+Thumbs.db
 
-### VS Code ###
-.vscode/
+# 환경변수/시크릿/설정
+.env
+.env.*
+*.env
+*.key
+*.pem
+*.crt
+*.p12
+*.jks
+*.keystore
+
+# Spring Boot 민감 파일
+src/main/resources/application-*.properties
+src/main/resources/application-*.yml
+src/main/resources/application.properties
+src/main/resources/application.yml
+
+# 로그/임시파일
+*.log
+*.tmp
+*.swp
+
+# 기타
+node_modules/
+coverage/
+
+# Secret scanning 보호
+secret*
+*secret*
+*SECRET*
+*key*
+*KEY*
+*token*
+*TOKEN*
+*password*
+*PASSWORD*
+*client_id*
+*client_secret*
+*refresh_token*
+*api_key*
+*API_KEY*
