@@ -38,7 +38,6 @@ const Register: React.FC = () => {
       setSearchCompany(false);
     }
   }, [selectedCompany]);
-
   const [personalName, setPersonalName] = useState('');
 const [personalEmail, setPersonalEmail] = useState('');
 const [personalPassword, setPersonalPassword] = useState('');
@@ -66,6 +65,7 @@ const [personalPassword, setPersonalPassword] = useState('');
       alert('네트워크 오류');
     }
   };
+
 
   // TextField 공통 스타일
   const textFieldProps = {
