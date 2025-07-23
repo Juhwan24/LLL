@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -8,6 +8,27 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = async () => {
+    try {
+      const response = await fetch('/api/users/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+      if (response.ok) {
+        alert('로그인 성공!');
+        navigate('/main');
+      } else {
+        alert('로그인 실패');
+      }
+    } catch (err) {
+      alert(err);
+    }
+  };
+
 
   // TextField 공통 스타일 (Register와 동일)
   const textFieldProps = {
@@ -76,9 +97,9 @@ const Login: React.FC = () => {
           <Typography variant="h5" sx={{ textAlign: 'left', fontWeight: 600, mb: 3, color: '#fff' }}>
             로그인
           </Typography>
-          <form>
-            <TextField label="이메일" variant="outlined" fullWidth margin="normal" required {...textFieldProps} />
-            <TextField label="비밀번호" type="password" variant="outlined" fullWidth margin="normal" required {...textFieldProps} />
+          <form onSubmit={e => {e.preventDefault(); handleLogin();}}>
+            <TextField label="이메일" name="email" value={email} onChange={e => setEmail(e.target.value)} variant="outlined" fullWidth margin="normal" required {...textFieldProps} />
+            <TextField label="비밀번호" name="password" type="password" value={password} onChange={e => setPassword(e.target.value)} variant="outlined" fullWidth margin="normal" required {...textFieldProps} />
             <Button type="submit" variant="contained" color="primary" fullWidth sx={{ borderRadius: 2, mb:2, mt: 2, backgroundColor: '#FF9100', '&:hover': { backgroundColor: '#FF9100' }, '&:active': { backgroundColor: '#FF9100' } }}>
               로그인
             </Button>
