@@ -48,14 +48,27 @@ const Landing: React.FC = () => {
           >
             <Container>
               {section.id === 'home' && (
-                <>
+                <Box
+                  sx={{
+                    width: '100%',
+                    minHeight: '100vh',
+                    backgroundImage: 'url(/landing_bg1.png)',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
                   <Typography variant="h2" sx={{ fontWeight: 800, mb: 2, color: '#FFFFFF' }}>
                     HRM
                   </Typography>
                   <Typography variant="h5" sx={{ color: '#FFFFFF', mb: 4, fontWeight: 600 }}>
                     간편한 인력 관리, AI와 함께
                   </Typography>
-                </>
+                </Box>
               )}
               {section.id === 'about' && (
                 <>
