@@ -18,7 +18,7 @@ const LeftBar: React.FC = () => {
   const [selectedId, setSelectedId] = useState<number>(1);
 
   return (
-    <Box sx={{ width: 270, height: '100vh', background: '#121214', display: 'flex', flexDirection: 'column', alignItems: 'center', boxSizing: 'border-box' }}>
+    <Box sx={{ width: 'auto', height: '100vh', background: '#121214', display: 'flex', flexDirection: 'column', alignItems: 'center', boxSizing: 'border-box' }}>
       <Box sx={{ diplay: 'flex', alignItems: 'center' }}>
         <img 
           src="/HRM.png" 
