@@ -48,3 +48,4 @@ cd frontend && npm start
 
 ## 개발 가이드
 각 디렉토리의 README.md 파일을 참조하세요.
+나도 contributor 나도
