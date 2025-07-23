@@ -8,7 +8,6 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -29,6 +28,7 @@ const Login: React.FC = () => {
       alert(err);
     }
   };
+
 
   // TextField 공통 스타일 (Register와 동일)
   const textFieldProps = {
