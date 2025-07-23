@@ -79,7 +79,7 @@ const Login: React.FC = () => {
           <Typography variant="h5" sx={{ textAlign: 'left', fontWeight: 600, mb: 3, color: '#fff' }}>
             로그인
           </Typography>
-          <form onSubmit={e => {e.preventDefault(); handleLogin(email, password );}}>
+          <form onSubmit={e => {e.preventDefault(); handleLogin(email, password, navigate);}}>
             <TextField label="이메일" name="email" value={email} onChange={e => setEmail(e.target.value)} variant="outlined" fullWidth margin="normal" required {...textFieldProps} />
             <TextField label="비밀번호" name="password" type="password" value={password} onChange={e => setPassword(e.target.value)} variant="outlined" fullWidth margin="normal" required {...textFieldProps} />
             <Button type="submit" variant="contained" color="primary" fullWidth sx={{ borderRadius: 2, mb:2, mt: 2, backgroundColor: '#FF9100', '&:hover': { backgroundColor: '#FF9100' }, '&:active': { backgroundColor: '#FF9100' } }}>

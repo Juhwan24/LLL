@@ -27,6 +27,7 @@ const Register: React.FC = () => {
   const filteredCompanies = companyList.filter(c => c.name.includes(searchText));
 
   // 기업 회원가입 입력값 상태
+  const [name, setName] = useState('');
   const [companyName, setCompanyName] = useState('');
   const [companyEmail, setCompanyEmail] = useState('');
   const [companyPassword, setCompanyPassword] = useState('');
@@ -177,6 +178,16 @@ const Register: React.FC = () => {
                 </svg>
               </Box>
               <Typography variant="h6" sx={{ mt: -2, color: '#fff', mb: 1, fontWeight: 600 }}>기업 회원가입</Typography>
+              <TextField 
+                label="이름" 
+                name="name"
+                fullWidth 
+                required 
+                margin="normal" 
+                value={name} 
+                onChange={e => setName(e.target.value)} 
+                {...textFieldProps}
+              />
               <TextField
                 label="기업명"
                 fullWidth
@@ -209,7 +220,7 @@ const Register: React.FC = () => {
               >
                 내 기업 찾기
               </Typography>
-              <Button variant="contained" color="primary" fullWidth sx={{ borderRadius: 2, mt: 2, backgroundColor: '#FF9100', '&:hover': { backgroundColor: '#FF9100' }, '&:active': { backgroundColor: '#FF9100' } }}>회원가입</Button>
+              <Button variant="contained" color="primary" fullWidth sx={{ borderRadius: 2, mt: 2, backgroundColor: '#FF9100', '&:hover': { backgroundColor: '#FF9100' }, '&:active': { backgroundColor: '#FF9100' } }} onClick={() => handleCompanyRegister(name, companyName, companyEmail, companyPassword, navigate)}>회원가입</Button>
             </>
           )}
           {/* 기업 검색 UI */}
@@ -363,7 +374,7 @@ const Register: React.FC = () => {
               <TextField label="이름" name="name" value={personalName} onChange={e => setPersonalName(e.target.value)} fullWidth margin="normal" {...textFieldProps} />
               <TextField label="이메일" value={personalEmail} onChange={e => setPersonalEmail(e.target.value)} fullWidth margin="normal" {...textFieldProps} />
               <TextField label="비밀번호" type="password" value={personalPassword} onChange={e => setPersonalPassword(e.target.value)} fullWidth margin="normal" {...textFieldProps} />
-              <Button variant="contained" color="primary" fullWidth sx={{ borderRadius: 2, mt: 2, backgroundColor: '#FF9100', '&:hover': { backgroundColor: '#FF9100' }, '&:active': { backgroundColor: '#FF9100' } }} onClick={() => handlePersonalRegister(personalName, personalEmail, personalPassword)}>회원가입</Button>
+              <Button variant="contained" color="primary" fullWidth sx={{ borderRadius: 2, mt: 2, backgroundColor: '#FF9100', '&:hover': { backgroundColor: '#FF9100' }, '&:active': { backgroundColor: '#FF9100' } }} onClick={() => handlePersonalRegister(personalName, personalEmail, personalPassword, navigate)}>회원가입</Button>
             </>
           )}
     </Box>
