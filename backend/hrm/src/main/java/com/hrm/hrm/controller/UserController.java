@@ -3,7 +3,7 @@ package com.hrm.hrm.controller;
 import com.hrm.hrm.dto.UserSignUpRequest;
 import com.hrm.hrm.dto.UserLoginRequest;
 import com.hrm.hrm.dto.UserLoginResponse;
-import com.hrm.hrm.dto.PersonalSignUpRequest;
+import com.hrm.hrm.dto.UserSignUpRequest;
 import com.hrm.hrm.dto.CompanySignUpRequest;
 import com.hrm.hrm.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -32,7 +32,7 @@ public class UserController {
 
     @Operation(summary = "개인 회원가입", description = "개인 회원 정보를 입력받아 회원가입을 처리합니다.")
     @PostMapping("/signup/personal")
-    public ResponseEntity<?> signUpPersonal(@RequestBody PersonalSignUpRequest request) {
+    public ResponseEntity<?> signUpPersonal(@RequestBody UserSignUpRequest request) {
         userService.signUp(request);
         return ResponseEntity.ok().build();
     }
