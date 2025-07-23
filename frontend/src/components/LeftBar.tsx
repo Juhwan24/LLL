@@ -59,7 +59,8 @@ const LeftBar: React.FC = () => {
               onClick={() => setSelectedId(team.id)}
               sx={{
                 ml: 0,
-                borderRadius: 0,
+                mr: 1,
+                borderRadius: '10px',
                 mb: 1.5,
                 backgroundColor: selectedId === team.id ? '#2C2C30' : 'transparent',
                 height: 56,
