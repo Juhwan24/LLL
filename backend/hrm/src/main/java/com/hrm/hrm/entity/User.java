@@ -28,8 +28,11 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
-    private String name;
+    @Column(name = "user_name")
+    private String userName; // 개인 회원 이름
+
+    @Column(name = "company_name")
+    private String companyName; // 기업 회원 이름
 
     @Column(nullable = false, unique = true)
     private String email;
@@ -49,10 +52,24 @@ public class User {
     private List<UserTeam> userTeams;
 
     // 정적 팩토리 메서드
-    public static User createUser(String name, String email, String password, String userType, boolean emailVerified, LocalDateTime createdAt) {
+    public static User createPersonalUser(String userName, String email, String password, String userType, boolean emailVerified, LocalDateTime createdAt) {
         return User.builder()
                 .id(UUID.randomUUID())
-                .name(name)
+                .userName(userName)
+                .companyName(null)
+                .email(email)
+                .password(password)
+                .userType(userType)
+                .emailVerified(emailVerified)
+                .createdAt(createdAt)
+                .build();
+    }
+
+    public static User createCompanyUser(String name, String companyName, String email, String password, String userType, boolean emailVerified, LocalDateTime createdAt) {
+        return User.builder()
+                .id(UUID.randomUUID())
+                .userName(name)
+                .companyName(companyName)
                 .email(email)
                 .password(password)
                 .userType(userType)
