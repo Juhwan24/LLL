@@ -1,7 +1,4 @@
-import { useNavigate } from 'react-router-dom';
-
-export const handleLogin = async (email: string, password: string) => {
-    const navigate = useNavigate();
+export const handleLogin = async (email: string, password: string, navigate: any) => {
     try {
       const response = await fetch('/api/users/login', {
         method: 'POST',
