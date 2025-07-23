@@ -76,7 +76,7 @@ const Landing: React.FC = () => {
                     ABOUT US
                   </Typography>
                   <Typography variant="h6" sx={{ color: '#444' }}>
-                    고려대학교 세종캠퍼스, 미래를 짊어진 한남들이 만든 프로젝트
+                    김주환, 그는 신이야
                   </Typography>
                 </>
               )}
