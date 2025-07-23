@@ -34,7 +34,7 @@ public class SecurityConfig {
         configuration.setAllowedOrigins(List.of("*")); // 모든 origin 허용 (개발용)
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
-        configuration.setAllowCredentials(false); // 쿠키 인증 필요 시 true
+        configuration.setAllowCredentials(true); // 쿠키 인증 필요 시 true
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
