@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 import com.hrm.hrm.dto.UserLoginRequest;
 import com.hrm.hrm.dto.UserLoginResponse;
 import com.hrm.hrm.util.JwtUtil;
+import com.hrm.hrm.dto.PersonalSignUpRequest;
+import com.hrm.hrm.dto.CompanySignUpRequest;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -23,14 +25,28 @@ public class UserServiceImpl implements UserService {
         this.passwordEncoder = new BCryptPasswordEncoder();
     }
 
-    @Override
-    public void signUp(UserSignUpRequest request) {
+    public void signUp(PersonalSignUpRequest request) {
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new IllegalArgumentException("이미 사용 중인 이메일입니다.");
         }
-        // 정적 팩토리 메서드 사용
-        User user = User.createUser(
+        User user = User.createPersonalUser(
+            request.getUserName(),
+            request.getEmail(),
+            passwordEncoder.encode(request.getPassword()),
+            request.getUserType(),
+            false,
+            LocalDateTime.now()
+        );
+        userRepository.save(user);
+    }
+
+    public void signUp(CompanySignUpRequest request) {
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new IllegalArgumentException("이미 사용 중인 이메일입니다.");
+        }
+        User user = User.createCompanyUser(
             request.getName(),
+            request.getCompanyName(),
             request.getEmail(),
             passwordEncoder.encode(request.getPassword()),
             request.getUserType(),
