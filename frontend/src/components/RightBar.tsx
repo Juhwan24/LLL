@@ -17,7 +17,7 @@ const RightBar: React.FC = () => {
         position: 'fixed',
         top: 0,
         right: 0,
-        width: 350,
+        width: 480,
         height: '100vh',
         background: '#232323',
         borderLeft: '1px solid #333',
