@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("이메일 인증이 필요합니다.");
         }
         User user = User.createCompanyUser(
-            request.getName(),
+            request.getUserName(),
             request.getCompanyName(),
             request.getEmail(),
             passwordEncoder.encode(request.getPassword()),

@@ -65,10 +65,10 @@ public class User {
                 .build();
     }
 
-    public static User createCompanyUser(String name, String companyName, String email, String password, String userType, boolean emailVerified, LocalDateTime createdAt) {
+    public static User createCompanyUser(String userName, String companyName, String email, String password, String userType, boolean emailVerified, LocalDateTime createdAt) {
         return User.builder()
                 .id(UUID.randomUUID())
-                .userName(name)
+                .userName(userName)
                 .companyName(companyName)
                 .email(email)
                 .password(password)

@@ -23,13 +23,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    @Operation(summary = "회원가입", description = "이름, 이메일, 비밀번호, 회원유형(기업/개인)으로 회원가입")
-    @PostMapping("/signup")
-    public ResponseEntity<?> signUp(@RequestBody UserSignUpRequest request) {
-        userService.signUp(request);
-        return ResponseEntity.ok().build();
-    }
-
     @Operation(summary = "개인 회원가입", description = "개인 회원 정보를 입력받아 회원가입을 처리합니다.")
     @PostMapping("/signup/personal")
     public ResponseEntity<?> signUpPersonal(@RequestBody UserSignUpRequest request) {
