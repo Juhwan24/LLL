@@ -9,4 +9,5 @@ public interface UserService {
     void signUp(UserSignUpRequest request);
     void signUp(CompanySignUpRequest request);
     UserLoginResponse login(UserLoginRequest request);
+    void changePassword(String email, String oldPassword, String newPassword);
 } 
