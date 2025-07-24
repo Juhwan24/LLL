@@ -8,6 +8,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { useState } from 'react';
 import SettingsIcon from '@mui/icons-material/Settings';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import { ChevronLeft } from '@mui/icons-material';
 
 const Main: React.FC = () => {
   const [isRightBarVisible, setIsRightBarVisible] = useState(true);
@@ -79,6 +80,49 @@ const Main: React.FC = () => {
         isVisible={isRightBarVisible}
         onToggle={toggleRightBar}
       />
+      
+      {/* RightBar 토글 탭 - RightBar가 숨겨져 있을 때만 표시 */}
+      {!isRightBarVisible && (
+        <Box 
+          onClick={toggleRightBar}
+          sx={{ 
+            position: 'absolute', 
+            right: 0, 
+            top: '50%', 
+            transform: 'translateY(-50%)',
+            width: '5px',
+            height: '160px',
+            flexShrink: 0,
+            borderRadius: '10px 0px 0px 10px',
+            background: '#FFF',
+            zIndex: 1000,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer',
+            transition: 'width 0.2s ease-in-out',
+            overflow: 'hidden',
+            '&:hover': {
+              width: '15px', // 호버 시 width 10 증가 (5px → 15px)
+              '& .chevron-icon': {
+                opacity: 1,
+                transform: 'translateX(0px)',
+              }
+            }
+          }}
+        >
+          <ChevronLeft 
+            className="chevron-icon"
+            sx={{
+              opacity: 0,
+              transform: 'translateX(10px)',
+              transition: 'opacity 0.3s ease-in-out, transform 0.3s ease-in-out',
+              fontSize: '30px',
+              color: '#242429',
+            }}
+          />
+        </Box>
+      )}
     </Box>
   );
 };

@@ -77,7 +77,7 @@ const RightBar: React.FC<RightBarProps> = ({ isVisible, onToggle }) => {
       {/* 메시지 입력 영역 */}
       <Box sx={{     
         width: 'full',
-        mb: '4px', 
+        mb: '10px', 
         display: 'flex', 
         alignItems: 'center', 
         backgroundColor: '#3B3B41',
