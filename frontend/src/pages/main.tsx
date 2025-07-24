@@ -21,57 +21,57 @@ const teamMembers = [
     role: '프론트 개발자',
     email: 'rlawnghks333@gmail.com',
     specialty: '개발세부분야',
-    avatar: '/icon.png',
+    avatar: '/juhwan.webp',
     project: 'project3'
   },
   {
     id: 2,
-    name: '박민수',
-    position: 'Lead Developer',
-    role: '백엔드 개발자',
-    email: 'minsu.park@gmail.com',
-    specialty: 'Node.js, AWS',
-    avatar: '/icon.png',
+    name: '허진우',
+    position: 'Big Dick',
+    role: '왕자',
+    email: 'simonadhd@gmail.com',
+    specialty: 'ahegao',
+    avatar: '/jinu.png',
     project: 'project1'
   },
   {
     id: 3,
-    name: '이지영',
+    name: '양지수',
     position: 'Designer',
-    role: 'UI/UX 디자이너',
-    email: 'jiyoung.lee@gmail.com',
+    role: '디자이너',
+    email: 'sujisu@gmail.com',
     specialty: 'Figma, Sketch',
-    avatar: '/icon.png',
+    avatar: '/jisu.jpg',
     project: 'project2'
   },
   {
     id: 4,
-    name: '최동욱',
+    name: '임현성',
     position: 'Developer',
-    role: '풀스택 개발자',
-    email: 'dongwook.choi@gmail.com',
+    role: '풀스택',
+    email: 'star@gmail.com',
     specialty: 'React, Spring Boot',
-    avatar: '/icon.png',
+    avatar: '/sung.jpg',
     project: 'project1'
   },
   {
     id: 5,
-    name: '한소영',
-    position: 'Product Manager',
-    role: '프로덕트 매니저',
-    email: 'soyoung.han@gmail.com',
+    name: '권민재',
+    position: 'Manager',
+    role: '매니저',
+    email: 'runminjae@gmail.com',
     specialty: '기획, 분석',
-    avatar: '/icon.png',
+    avatar: '/minjae.jpeg',
     project: 'project3'
   },
   {
     id: 6,
-    name: '정현우',
-    position: 'Developer',
-    role: '모바일 개발자',
-    email: 'hyunwoo.jung@gmail.com',
-    specialty: 'React Native, Flutter',
-    avatar: '/icon.png',
+    name: '이지은',
+    position: 'Cheerleader',
+    role: '예쁜 여자',
+    email: 'jieun.lee@gmail.com',
+    specialty: 'beautiful',
+    avatar: '/iu.jpeg',
     project: 'project2'
   }
 ];
@@ -109,48 +109,47 @@ const Main: React.FC = () => {
     <Card
       sx={{
         backgroundColor: '#242429',
-        borderRadius: 3,
-        border: '1px solid #333',
+        borderRadius: '10px',
         transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
         '&:hover': {
-          transform: 'translateY(-4px)',
-          boxShadow: '0 8px 25px rgba(0, 0, 0, 0.3)',
+          transform: 'translateY(-2px)',
         },
         height: '100%',
       }}
     >
-      <CardContent sx={{ p: 3 }}>
-        <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-          <Avatar
+      <CardContent sx={{ p: 2 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', mb: 2}}>
+          <Box
             sx={{
               width: 60,
               height: 60,
               backgroundColor: '#8B7355',
               mr: 2,
+              borderRadius: '10px',
             }}
           >
             <img 
               src={member.avatar} 
               alt={member.name}
-              style={{ width: '100%', height: '100%', borderRadius: '50%' }}
+              style={{ objectFit: 'cover', width: '100%', height: '100%', borderRadius: '10px' }}
             />
-          </Avatar>
+          </Box>
           <Box sx={{ flex: 1 }}>
-            <Typography variant="h6" sx={{ color: '#fff', fontWeight: 600, mb: 0.5 }}>
+            <Typography variant="body1" sx={{ color: '#fff', fontWeight: 500 }}>
               {member.name}
             </Typography>
-            <Typography variant="body2" sx={{ color: '#94959C', fontSize: '14px' }}>
+            <Typography variant="body2" sx={{ color: '#94959C', fontSize: '14px', fontweight: 500 }}>
               {member.position} / {member.role}
             </Typography>
           </Box>
         </Box>
 
-        <Typography variant="body2" sx={{ color: '#94959C', mb: 1.5, fontSize: '13px' }}>
+        <Typography variant="body2" sx={{ color: '#94959C', mb: 1, fontSize: '14px', fontweight: 400 }}>
           {member.email}
         </Typography>
 
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Typography variant="body2" sx={{ color: '#94959C', fontSize: '12px' }}>
+          <Typography variant="body2" sx={{ color: '#94959C', fontSize: '12px', fontweight: 400 }}>
             {member.specialty}
           </Typography>
           <Chip 
@@ -241,7 +240,17 @@ const Main: React.FC = () => {
             </Box>
             
             <Box sx={{ display: 'flex', mr:5, alignItems: 'center', borderRadius: '40px', background: '#222225' }}>
-              <img src="/icon.png" alt="icon" style={{ width: '60px', height: '60px', borderRadius: '50%', cursor: 'pointer'}} />
+              <img 
+                src="/iu.jpeg" 
+                alt="icon" 
+                style={{ 
+                  width: '60px', 
+                  height: '60px',  // auto에서 60px로 변경
+                  objectFit: 'cover',  // 이미지 비율 유지하면서 영역을 채움
+                  borderRadius: '50%', 
+                  cursor: 'pointer'
+                }} 
+              />
             </Box>
           </Box>
         </Box>
@@ -276,7 +285,17 @@ const Main: React.FC = () => {
         }}>
           <Grid container spacing={2}>
             {filteredMembers.map((member) => (
-              <Grid item xs={12} sm={6} md={4} lg={3} key={member.id}>
+              <Grid 
+                item 
+                xs={12} 
+                sm={6} 
+                md={4} 
+                lg={3} 
+                key={member.id}
+                sx={{
+                  minWidth: '280px', // 카드의 최소 너비 설정
+                }}
+              >
                 <MemberCard member={member} />
               </Grid>
             ))}
