@@ -3,6 +3,8 @@ package com.hrm.hrm.controller;
 import com.hrm.hrm.dto.UserSignUpRequest;
 import com.hrm.hrm.dto.UserLoginRequest;
 import com.hrm.hrm.dto.UserLoginResponse;
+import com.hrm.hrm.dto.UserSignUpRequest;
+import com.hrm.hrm.dto.CompanySignUpRequest;
 import com.hrm.hrm.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -24,6 +26,20 @@ public class UserController {
     @Operation(summary = "회원가입", description = "이름, 이메일, 비밀번호, 회원유형(기업/개인)으로 회원가입")
     @PostMapping("/signup")
     public ResponseEntity<?> signUp(@RequestBody UserSignUpRequest request) {
+        userService.signUp(request);
+        return ResponseEntity.ok().build();
+    }
+
+    @Operation(summary = "개인 회원가입", description = "개인 회원 정보를 입력받아 회원가입을 처리합니다.")
+    @PostMapping("/signup/personal")
+    public ResponseEntity<?> signUpPersonal(@RequestBody UserSignUpRequest request) {
+        userService.signUp(request);
+        return ResponseEntity.ok().build();
+    }
+
+    @Operation(summary = "기업 회원가입", description = "기업 회원 정보를 입력받아 회원가입을 처리합니다.")
+    @PostMapping("/signup/company")
+    public ResponseEntity<?> signUpCompany(@RequestBody CompanySignUpRequest request) {
         userService.signUp(request);
         return ResponseEntity.ok().build();
     }

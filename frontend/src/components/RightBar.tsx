@@ -6,208 +6,106 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
 
 const RightBar: React.FC = () => {
-  const [openTeams, setOpenTeams] = useState(true);
-  const [openProjects, setOpenProjects] = useState(false);
+  const [message, setMessage] = useState('');
+
+  const handleSendMessage = () => {
+    if (message.trim()) {
+      console.log('Sending message:', message);
+      setMessage('');
+    }
+  };
+
+  const handleKeyPress = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
+      handleSendMessage();
+    }
+  };
 
   return (
-    <Box
-      sx={{
-        position: 'fixed',
-        top: 0,
-        right: 0,
-        width: 350,
-        height: '100vh',
-        background: '#232323',
-        borderLeft: '1px solid #333',
-        zIndex: 1300,
-        display: 'flex',
-        flexDirection: 'column',
-      }}
-    >
-      {/* Teams Section */}
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', px: 2, py: 0.3 }}>
-        <Typography variant="subtitle1" sx={{ color: '#A8A8A8', fontWeight: 400 }}>Teams</Typography>
-        <IconButton onClick={() => setOpenTeams(v => !v)} sx={{ color: '#A8A8A8' }}>
-          {/* 아래로 펼침/접힘 아이콘 */}
-          <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path
-              d={openTeams ? "M6 15l6-6 6 6" : "M6 9l6 6 6-6"}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+    <Box sx={{ 
+      width: 'auto', 
+      height: '100vh', 
+      background: '#242429', 
+      display: 'flex', 
+      flexDirection: 'column', 
+      justifyContent: 'flex-end',
+      alignItems: 'center', 
+      boxSizing: 'border-box',
+      p: 2
+    }}>
+      <Box sx={{ position: 'absolute', top: '16px', right: '16px'}}>
+        <img
+          src="/sidebar.png"
+          alt="Sidebar"
+          style={{ height: '32px', width: '32px' }}
+        />
+      </Box>
+      {/* 메시지 입력 영역 */}
+      <Box sx={{ 
+        width: 'full',
+        mb: '4px', 
+        display: 'flex', 
+        alignItems: 'center', 
+        backgroundColor: '#3B3B41',
+        borderRadius: '24px',
+        padding: '8px 16px',
+        gap: '16px'
+      }}>
+        
+        <IconButton size="small" sx={{ color: '#B5B5B5' }}>
+          <AttachFileIcon />
         </IconButton>
-      </Box>
-      {openTeams && (
-        <Box sx={{ px: 2, py:1 }}>
-          <Typography sx={{ color: '#fff', mb: 1 }}>개발팀</Typography>
-          <Typography sx={{ color: '#fff', mb: 1 }}>디자인팀</Typography>
-        </Box>
-      )}
-
-      {/* Projects Section */}
-      <Box sx={{ borderTop: '1px solid #333', display: 'flex', alignItems: 'center', justifyContent: 'space-between', px: 2, py: 0.3 }}>
-        <Typography variant="subtitle1" sx={{ color: '#A8A8A8', fontWeight: 400 }}>Projects</Typography>
-        <IconButton onClick={() => setOpenProjects(v => !v)} sx={{ color: '#A8A8A8' }}>
-          <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path
-              d={openProjects ? "M6 15l6-6 6 6" : "M6 9l6 6 6-6"}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </IconButton>
-      </Box>
-      {openProjects && (
-        <Box sx={{ px: 2, py:1 }}>
-          <Typography sx={{ color: '#fff', mb: 1 }}>프로젝트 A</Typography>
-          <Typography sx={{ color: '#fff', mb: 1 }}>프로젝트 B</Typography>
-        </Box>
-      )}
-      {/* 챗봇 메시지 영역 */}
-      <Box sx={{ flex: 1, width: '100%', overflowY: 'auto', background: '#181818', borderTop: '1px solid #333' }}>
-        <Box
-          sx={{
-            width: '100%',
-            minHeight: '80vh',
-            maxHeight: '80vh',
-            background: '#222',
-            color: '#fff',
-            p: 2,
-            overflowY: 'auto',
-            borderRadius: 0,
-            '&::-webkit-scrollbar': {
-              width: 8,
-              backgroundColor: '#222',
-              borderRadius: 8,
-            },
-            '&::-webkit-scrollbar-thumb': {
-              backgroundColor: '#333',
-              borderRadius: 8,
-            },
-            '&::-webkit-scrollbar-thumb:hover': {
-              backgroundColor: '#3C76F1',
-            },
-            scrollbarColor: '#444 #181818',
-            scrollbarWidth: 'thin',
-          }}
-        >
-          {/* 여기에 챗봇 메시지들이 쭉 나열 */}
-          <Typography variant="body2" sx={{ color: '#aaa' }}>
-            여기에 챗봇 메시지가 표시됩니다.
-            앙
-            <br />
-            앙
-            <br />
-            앙
-            <br />
-            앙
-            <br />
-            앙
-            <br />
-            앙
-            <br />
-            앙
-            <br />
-            앙  
-            <br />
-            앙
-            <br />
-            앙
-            <br />
-            앙
-            <br />
-            앙
-            <br />
-            앙
-            <br />
-            앙
-            <br />
-            앙
-            <br />
-            앙
-            <br />
-            앙
-            <br />
-            앙
-            <br />
-            앙
-            <br />
-            앙
-            <br />
-            앙
-            <br />
-            앙
-            <br />
-            앙
-            <br />
-            앙
-            <br />
-            앙
-            <br />
-            레전드
-            <br />
-            앙
-            <br />
-            앙
-            <br />
-            앙
-            <br />
-            기모띠
-            <br />
-            기모띠 기모띠 레전드 기모띠
-            <br />
-          </Typography>
-        </Box>
-      </Box>
-      {/* 입력창 */}
-      <Box
-        sx={{
-          borderTop: '1px solid #333',
-          position: 'absolute',
-          bottom: 0,
-          left: 0,
-          width: '100%', // 추가!
-          background: '#232323',
-          p: 1,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <TextField
-          fullWidth // 추가!
-          placeholder="메시지를 입력하세요..."
-          variant="outlined"
-          sx={{ background: '#222', input: { color: '#fff' } }}
+        
+                  <TextField
+            placeholder="Message HRM"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            onKeyPress={handleKeyPress}
+            multiline
+            maxRows={4}
+            variant="standard"
+            fullWidth
+            spellCheck={false}
           InputProps={{
-            endAdornment: (
-              <Button
-                variant="contained"
-                sx={{
-                  alignSelf: 'flex-end',
-                  minWidth: 0,
-                  width: 25,
-                  height: 20,
-                  borderRadius: '50%',
-                  background: '#FFFFFF',
-                  color: '#000000',
-                  p: 0,
-                  boxShadow: 'none',
-                  '&:hover': { background: '#2656b6' },
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <ArrowUpwardIcon sx={{ width: 12, height: 12 }} />
-              </Button>
-            ),
+            disableUnderline: true,
+            sx: {
+              color: '#FFFFFF',
+              fontSize: '16px',
+              '& input::placeholder': {
+                color: '#8E8E93',
+                opacity: 1,
+              },
+            },
+          }}
+          sx={{
+            '& .MuiInput-root': {
+              '&:before': { display: 'none' },
+              '&:after': { display: 'none' },
+            },
           }}
         />
-        
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#323237', borderRadius: '100px' }}>
+        <IconButton 
+          onClick={handleSendMessage}
+          disabled={!message.trim()}
+          sx={{ 
+            color: '#FFFFFF',
+            width: 32,
+            height: 32,
+            stroke: '#B5B5B5',
+            '&:disabled': {
+              color: '#B5B5B5',
+            }
+          }}
+        >
+          <ArrowUpwardIcon sx={{ fontSize: 18 }} />
+        </IconButton>
+        </Box>
       </Box>
     </Box>
   );

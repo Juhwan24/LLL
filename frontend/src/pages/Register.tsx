@@ -5,7 +5,7 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useNavigate } from 'react-router-dom';
-import { handlePersonalRegister, handleCompanyRegister } from '../routers/register';
+import { handleCompanyRegister, handlePersonalRegister } from '../routers/register';
 
 const Register: React.FC = () => {
   const [selected, setSelected] = useState<'company' | 'personal' | null>(null);
@@ -26,11 +26,15 @@ const Register: React.FC = () => {
   ];
   const filteredCompanies = companyList.filter(c => c.name.includes(searchText));
 
-  // 기업 회원가입 입력값 상태
-  const [name, setName] = useState('');
+  // 기업 회원가입 입력값
   const [companyName, setCompanyName] = useState('');
+  const [name, setName] = useState('');
   const [companyEmail, setCompanyEmail] = useState('');
   const [companyPassword, setCompanyPassword] = useState('');
+  // 개인 회원가입 입력값
+  const [personalName, setPersonalName] = useState('');
+  const [personalEmail, setPersonalEmail] = useState('');
+  const [personalPassword, setPersonalPassword] = useState('');
 
   // 기업 선택 후 값 자동 입력
   React.useEffect(() => {
@@ -40,9 +44,6 @@ const Register: React.FC = () => {
       setSearchCompany(false);
     }
   }, [selectedCompany]);
-  const [personalName, setPersonalName] = useState('');
-  const [personalEmail, setPersonalEmail] = useState('');
-  const [personalPassword, setPersonalPassword] = useState('');
 
   // TextField 공통 스타일
   const textFieldProps = {
@@ -221,6 +222,7 @@ const Register: React.FC = () => {
                 내 기업 찾기
               </Typography>
               <Button variant="contained" color="primary" fullWidth sx={{ borderRadius: 2, mt: 2, backgroundColor: '#FF9100', '&:hover': { backgroundColor: '#FF9100' }, '&:active': { backgroundColor: '#FF9100' } }} onClick={() => handleCompanyRegister(name, companyName, companyEmail, companyPassword, navigate)}>회원가입</Button>
+              <Button variant="contained" color="primary" fullWidth sx={{ borderRadius: 2, mt: 2, backgroundColor: '#FF9100', '&:hover': { backgroundColor: '#FF9100' }, '&:active': { backgroundColor: '#FF9100' } }} onClick={() => handleCompanyRegister(name, companyName, companyEmail, companyPassword, navigate)}>회원가입</Button>
             </>
           )}
           {/* 기업 검색 UI */}
@@ -374,6 +376,7 @@ const Register: React.FC = () => {
               <TextField label="이름" name="name" value={personalName} onChange={e => setPersonalName(e.target.value)} fullWidth margin="normal" {...textFieldProps} />
               <TextField label="이메일" value={personalEmail} onChange={e => setPersonalEmail(e.target.value)} fullWidth margin="normal" {...textFieldProps} />
               <TextField label="비밀번호" type="password" value={personalPassword} onChange={e => setPersonalPassword(e.target.value)} fullWidth margin="normal" {...textFieldProps} />
+              <Button variant="contained" color="primary" fullWidth sx={{ borderRadius: 2, mt: 2, backgroundColor: '#FF9100', '&:hover': { backgroundColor: '#FF9100' }, '&:active': { backgroundColor: '#FF9100' } }} onClick={() => handlePersonalRegister(personalName, personalEmail, personalPassword, navigate)}>회원가입</Button>
               <Button variant="contained" color="primary" fullWidth sx={{ borderRadius: 2, mt: 2, backgroundColor: '#FF9100', '&:hover': { backgroundColor: '#FF9100' }, '&:active': { backgroundColor: '#FF9100' } }} onClick={() => handlePersonalRegister(personalName, personalEmail, personalPassword, navigate)}>회원가입</Button>
             </>
           )}

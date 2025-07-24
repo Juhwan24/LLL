@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 import com.hrm.hrm.dto.UserLoginRequest;
 import com.hrm.hrm.dto.UserLoginResponse;
 import com.hrm.hrm.util.JwtUtil;
+import com.hrm.hrm.dto.CompanySignUpRequest;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -23,14 +24,28 @@ public class UserServiceImpl implements UserService {
         this.passwordEncoder = new BCryptPasswordEncoder();
     }
 
-    @Override
     public void signUp(UserSignUpRequest request) {
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new IllegalArgumentException("이미 사용 중인 이메일입니다.");
         }
-        // 정적 팩토리 메서드 사용
-        User user = User.createUser(
+        User user = User.createPersonalUser(
+            request.getUserName(),
+            request.getEmail(),
+            passwordEncoder.encode(request.getPassword()),
+            request.getUserType(),
+            false,
+            LocalDateTime.now()
+        );
+        userRepository.save(user);
+    }
+
+    public void signUp(CompanySignUpRequest request) {
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new IllegalArgumentException("이미 사용 중인 이메일입니다.");
+        }
+        User user = User.createCompanyUser(
             request.getName(),
+            request.getCompanyName(),
             request.getEmail(),
             passwordEncoder.encode(request.getPassword()),
             request.getUserType(),
@@ -48,7 +63,8 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
         // JWT 토큰 생성
-        String token = JwtUtil.createToken(user.getEmail(), user.getName());
-        return new UserLoginResponse(user.getEmail(), user.getName(), "로그인 성공", token);
+        String displayName = user.getUserName() != null ? user.getUserName() : user.getCompanyName();
+        String token = JwtUtil.createToken(user.getEmail(), displayName);
+        return new UserLoginResponse(user.getEmail(), displayName, "로그인 성공", token);
     }
 } 
