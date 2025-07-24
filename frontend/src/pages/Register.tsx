@@ -5,6 +5,7 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useNavigate } from 'react-router-dom';
+import { handleCompanyRegister, handlePersonalRegister } from '../routers/register';
 
 const Register: React.FC = () => {
   const [selected, setSelected] = useState<'company' | 'personal' | null>(null);
@@ -25,11 +26,15 @@ const Register: React.FC = () => {
   ];
   const filteredCompanies = companyList.filter(c => c.name.includes(searchText));
 
-  // 기업 회원가입 입력값 상태
+  // 기업 회원가입 입력값
   const [companyName, setCompanyName] = useState('');
   const [name, setName] = useState('');
   const [companyEmail, setCompanyEmail] = useState('');
   const [companyPassword, setCompanyPassword] = useState('');
+  // 개인 회원가입 입력값
+  const [personalName, setPersonalName] = useState('');
+  const [personalEmail, setPersonalEmail] = useState('');
+  const [personalPassword, setPersonalPassword] = useState('');
 
   // 기업 선택 후 값 자동 입력
   React.useEffect(() => {
@@ -39,58 +44,6 @@ const Register: React.FC = () => {
       setSearchCompany(false);
     }
   }, [selectedCompany]);
-  const [personalName, setPersonalName] = useState('');
-const [personalEmail, setPersonalEmail] = useState('');
-const [personalPassword, setPersonalPassword] = useState('');
-
-  const handlePersonalRegister = async () => {
-    try {
-      const response = await fetch('/api/users/signup/personal', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: personalName,
-          email: personalEmail,
-          password: personalPassword,
-          userType: 'personal',
-        }),
-      });
-      if (response.ok) {
-        alert('회원가입 성공! 로그인 페이지로 이동합니다.');
-        navigate('/login');
-      } else {
-        const data = await response.json();
-        alert('회원가입 실패: ' + (data.message || '알 수 없는 오류'));
-      }
-    } catch (err) {
-      alert('네트워크 오류');
-    }
-  };
-
-  const handleCompanyRegister = async () => {
-    try {
-      const response = await fetch('/api/users/signup/company', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: name,
-          companyName: companyName,
-          email: companyEmail,
-          password: companyPassword,
-          userType: 'company',
-        }),
-      });
-      if (response.ok) {
-        alert('회원가입 성공! 로그인 페이지로 이동합니다.');
-        navigate('/login');
-      } else {
-        const data = await response.json();
-        alert('회원가입 실패: ' + (data.message || '알 수 없는 오류'));
-      }
-    } catch (err) {
-      alert('네트워크 오류');
-    }
-  };
 
   // TextField 공통 스타일
   const textFieldProps = {
@@ -266,7 +219,7 @@ const [personalPassword, setPersonalPassword] = useState('');
               >
                 내 기업 찾기
               </Typography>
-              <Button variant="contained" color="primary" fullWidth sx={{ borderRadius: 2, mt: 2, backgroundColor: '#FF9100', '&:hover': { backgroundColor: '#FF9100' }, '&:active': { backgroundColor: '#FF9100' } }} onClick={handleCompanyRegister}>회원가입</Button>
+              <Button variant="contained" color="primary" fullWidth sx={{ borderRadius: 2, mt: 2, backgroundColor: '#FF9100', '&:hover': { backgroundColor: '#FF9100' }, '&:active': { backgroundColor: '#FF9100' } }} onClick={() => handleCompanyRegister(name, companyName, companyEmail, companyPassword, navigate)}>회원가입</Button>
             </>
           )}
           {/* 기업 검색 UI */}
@@ -420,7 +373,7 @@ const [personalPassword, setPersonalPassword] = useState('');
               <TextField label="이름" name="name" value={personalName} onChange={e => setPersonalName(e.target.value)} fullWidth margin="normal" {...textFieldProps} />
               <TextField label="이메일" value={personalEmail} onChange={e => setPersonalEmail(e.target.value)} fullWidth margin="normal" {...textFieldProps} />
               <TextField label="비밀번호" type="password" value={personalPassword} onChange={e => setPersonalPassword(e.target.value)} fullWidth margin="normal" {...textFieldProps} />
-              <Button variant="contained" color="primary" fullWidth sx={{ borderRadius: 2, mt: 2, backgroundColor: '#FF9100', '&:hover': { backgroundColor: '#FF9100' }, '&:active': { backgroundColor: '#FF9100' } }} onClick={handlePersonalRegister}>회원가입</Button>
+              <Button variant="contained" color="primary" fullWidth sx={{ borderRadius: 2, mt: 2, backgroundColor: '#FF9100', '&:hover': { backgroundColor: '#FF9100' }, '&:active': { backgroundColor: '#FF9100' } }} onClick={() => handlePersonalRegister(personalName, personalEmail, personalPassword, navigate)}>회원가입</Button>
             </>
           )}
     </Box>
