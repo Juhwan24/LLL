@@ -5,7 +5,6 @@ import com.hrm.hrm.dto.UserLoginRequest;
 import com.hrm.hrm.dto.UserLoginResponse;
 import com.hrm.hrm.dto.UserSignUpRequest;
 import com.hrm.hrm.dto.CompanySignUpRequest;
-import com.hrm.hrm.dto.ChangePasswordRequest;
 import com.hrm.hrm.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -43,12 +42,5 @@ public class UserController {
     public ResponseEntity<UserLoginResponse> login(@RequestBody UserLoginRequest request) {
         UserLoginResponse response = userService.login(request);
         return ResponseEntity.ok(response);
-    }
-
-    @Operation(summary = "비밀번호 변경", description = "이메일, 기존 비밀번호, 새 비밀번호를 받아 비밀번호를 변경.")
-    @PostMapping("/change-password")
-    public ResponseEntity<?> changePassword(@RequestBody ChangePasswordRequest request) {
-        userService.changePassword(request.getEmail(), request.getOldPassword(), request.getNewPassword());
-        return ResponseEntity.ok().build();
     }
 } 

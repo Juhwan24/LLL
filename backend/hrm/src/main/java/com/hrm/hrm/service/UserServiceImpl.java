@@ -81,23 +81,5 @@ public class UserServiceImpl implements UserService {
         return new UserLoginResponse(user.getEmail(), displayName, "로그인 성공", token);
     }
 
-    @Override
-    public void changePassword(String email, String oldPassword, String newPassword) {
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 이메일입니다."));
-        if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
-            throw new IllegalArgumentException("기존 비밀번호가 일치하지 않습니다.");
-        }
-        user = User.builder()
-                .id(user.getId())
-                .userName(user.getUserName())
-                .companyName(user.getCompanyName())
-                .email(user.getEmail())
-                .password(passwordEncoder.encode(newPassword))
-                .userType(user.getUserType())
-                .emailVerified(user.isEmailVerified())
-                .createdAt(user.getCreatedAt())
-                .build();
-        userRepository.save(user);
-    }
+    // changePassword 메서드 구현 삭제
 } 
