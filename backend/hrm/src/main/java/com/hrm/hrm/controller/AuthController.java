@@ -18,6 +18,7 @@ import java.security.GeneralSecurityException;
 import java.util.*;
 import io.swagger.v3.oas.annotations.Operation;
 import com.hrm.hrm.dto.SendCodeRequest;
+import com.hrm.hrm.dto.VerifyCodeRequest;
 
 @Controller
 @RequestMapping("/api/auth")
@@ -125,8 +126,9 @@ public class AuthController {
     @Operation(summary = "이메일 인증코드 검증", description = "이메일과 인증코드를 받아 검증합니다.")
     @PostMapping("/verify-code")
     @ResponseBody
-    public Map<String, Object> verifyCode(@RequestBody SendCodeRequest req, @RequestParam("code") String code) {
+    public Map<String, Object> verifyCode(@RequestBody VerifyCodeRequest req) {
         String email = req.getEmail();
+        String code = req.getCode();
         Map<String, Object> res = new HashMap<>();
         CodeWithExpiry cwe = codeStore.get(email);
         if (cwe == null) {
