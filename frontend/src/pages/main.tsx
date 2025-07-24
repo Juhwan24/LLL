@@ -9,14 +9,23 @@ import { useState } from 'react';
 import SettingsIcon from '@mui/icons-material/Settings';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 
-
-
-
 const Main: React.FC = () => {
+  const [isRightBarVisible, setIsRightBarVisible] = useState(true);
+
+  const toggleRightBar = () => {
+    setIsRightBarVisible(!isRightBarVisible);
+  };
+
   return (
     <Box sx={{ display: 'flex', width: '100vw', height: '100vh', background: '#1A1A1E' }}>
       <LeftBar />
-      <Box sx={{ flex: 1, background: '#1A1A1E' }}>
+      <Box sx={{ 
+        flex: 1, 
+        background: '#1A1A1E',
+        transition: 'margin-right 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+        marginRight: isRightBarVisible ? '320px' : '0px', // RightBar 너비만큼 조정
+        overflow: 'hidden'
+      }}>
         <Box sx={{ display: 'flex', justifyContent: 'right', alignItems: 'center', width: '100%', height: '10%', background: '#1A1A1E',borderBottom: '2px solid #222225' }}>
           <Typography sx={{ position: 'left', ml: 3, color: '#94959C', fontSize: 28, fontFamily: 'Inter', fontWeight: '100', wordWrap: 'break-word'}}>
             MEMBERS
@@ -66,7 +75,10 @@ const Main: React.FC = () => {
         </Box>
         </Box>
       </Box>
-      <RightBar />
+      <RightBar 
+        isVisible={isRightBarVisible}
+        onToggle={toggleRightBar}
+      />
     </Box>
   );
 };
