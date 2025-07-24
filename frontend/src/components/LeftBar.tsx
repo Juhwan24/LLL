@@ -6,6 +6,8 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
+import SettingsIcon from '@mui/icons-material/Settings';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 
 const dummyTeams = [
   { id: 1, name: 'DESIGN TEAM' },
@@ -14,7 +16,11 @@ const dummyTeams = [
   { id: 4, name: 'MARKETING' },
 ];
 
-const LeftBar: React.FC = () => {
+interface LeftBarProps {
+  onOpenSettings?: () => void;
+}
+
+const LeftBar: React.FC<LeftBarProps> = ({ onOpenSettings }) => {
   const [selectedId, setSelectedId] = useState<number>(1);
 
   return (
@@ -26,7 +32,8 @@ const LeftBar: React.FC = () => {
           style={{ height: '40px', width: 'auto', marginTop: '30px', marginBottom: '30px' }}
         />
       </Box>
-      <List sx={{ width: '100%' }}>
+      
+      <List sx={{ width: '100%', flex: 1 }}>
         {dummyTeams.map((team) => (
           <ListItem key={team.id} disablePadding sx={{ position: 'relative'}}>
             {/* 선택 인디케이터 - 왼쪽 하얀색 세로선들 */}
@@ -36,7 +43,7 @@ const LeftBar: React.FC = () => {
                 left: 0, 
                 top: '0px', 
                 transform: 'translateY(0%)',
-                width: '6.142px',
+                width: '6px',
                 height: '58px',
                 flexShrink: 0,
                 borderRadius: '0px 10px 10px 0px',
@@ -78,13 +85,36 @@ const LeftBar: React.FC = () => {
               }}
             >
 
-              <Typography sx={{ ml: 4, color: '#94959C', fontSize: 18, fontFamily: 'Inter', fontWeight: '200', wordWrap: 'break-word'}}>
+              <Typography sx={{ ml: 3, color: '#94959C', fontSize: 18, fontFamily: 'Inter', fontWeight: '200', wordWrap: 'break-word'}}>
                 {team.name}
               </Typography>
             </ListItemButton>
           </ListItem>
         ))}
       </List>
+      <Box sx={{display: 'flex', alignItems: 'center', width: '100%', borderBottom: '2px solid #222225', mb: 1}}>
+      </Box>
+      {/* 하단 버튼들 */}
+      <Box sx={{mt: 1, display: 'flex', flexDirection: 'row', gap: 1, mb: 2, alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+        <Box 
+          onClick={onOpenSettings}
+          sx={{ 
+            mr: 16,
+            p: 1, 
+            display: 'flex', 
+            alignItems: 'center', 
+            borderRadius: '40px', 
+            background: '#222225', 
+            cursor: 'pointer',
+            transition: 'background-color 0.2s ease',
+            '&:hover': {
+              backgroundColor: 'rgba(88, 101, 242, 0.1)',
+            }
+          }}
+        >
+          <SettingsIcon sx={{ color: '#5865F2', width: '20px', height: '20px' }} />
+        </Box>      
+      </Box>
     </Box>
   );
 };

@@ -7,10 +7,8 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import SearchIcon from '@mui/icons-material/Search';
 import { useState } from 'react';
-import SettingsIcon from '@mui/icons-material/Settings';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import { ChevronLeft } from '@mui/icons-material';
-import { Card, CardContent, Avatar, Chip, Grid } from '@mui/material';
+import { Card, CardContent, Chip, Grid } from '@mui/material';
 
 // 더미 데이터
 const teamMembers = [
@@ -171,7 +169,7 @@ const Main: React.FC = () => {
 
   return (
     <Box sx={{ display: 'flex', width: '100vw', height: '100vh', background: '#1A1A1E' }}>
-      <LeftBar />
+      <LeftBar onOpenSettings={openSettingsModal} />
       <Box sx={{ 
         flex: 1, 
         background: '#1A1A1E',
@@ -188,7 +186,7 @@ const Main: React.FC = () => {
           </Typography>
           
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', borderRadius: '40px', background: '#222225', width: '270px', height: '50px' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', borderRadius: '20px', background: '#222225', width: '360px', height: '50px' }}>
               <SearchIcon sx={{ color: '#5865F2', mr: 1, ml: 2 }} />
               <TextField
                 placeholder="Search for someone"
@@ -215,30 +213,7 @@ const Main: React.FC = () => {
                   },
                 }}
               />
-            </Box>
-            
-            <Box 
-              onClick={openSettingsModal}
-              sx={{ 
-                p: 1.5, 
-                display: 'flex', 
-                alignItems: 'center', 
-                borderRadius: '40px', 
-                background: '#222225', 
-                cursor: 'pointer',
-                transition: 'background-color 0.2s ease',
-                '&:hover': {
-                  backgroundColor: 'rgba(88, 101, 242, 0.1)',
-                }
-              }}
-            >
-              <SettingsIcon sx={{ color: '#5865F2' }} />
-            </Box>
-            
-            <Box sx={{ p: 1.5, display: 'flex', alignItems: 'center', borderRadius: '40px', background: '#222225' }}>
-              <NotificationsIcon sx={{ color: '#FE5C73' }} />
-            </Box>
-            
+            </Box>    
             <Box sx={{ display: 'flex', mr:5, alignItems: 'center', borderRadius: '40px', background: '#222225' }}>
               <img 
                 src="/iu.jpeg" 
