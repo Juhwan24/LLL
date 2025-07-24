@@ -5,9 +5,11 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useNavigate } from 'react-router-dom';
-import { handleCompanyRegister, handlePersonalRegister } from '../routers/register';
+import { signUpPersonal, signUpCompany } from '../api/auth';
+import EmailVerificationModal from '../components/EmailVerificationModal';
 
 const Register: React.FC = () => {
+  const navigate = useNavigate();
   const [selected, setSelected] = useState<'company' | 'personal' | null>(null);
   const [searchCompany, setSearchCompany] = useState(false);
   const [selectedCompany, setSelectedCompany] = useState<{ name: string; domain: string } | null>(null);
@@ -17,6 +19,13 @@ const Register: React.FC = () => {
   const [newCompanyEmail, setNewCompanyEmail] = useState('');
   const [newCompanyOwner, setNewCompanyOwner] = useState('');
   const [companyEmailConfirm, setCompanyEmailConfirm] = useState(false);
+
+  // 이메일 인증 관련 상태
+  const [showEmailModal, setShowEmailModal] = useState(false);
+  const [emailToVerify, setEmailToVerify] = useState('');
+  const [isEmailVerified, setIsEmailVerified] = useState(false);
+  const [verifiedEmail, setVerifiedEmail] = useState('');
+
   // 예시 기업 리스트
   const companyList = [
     { name: '삼성전자', domain: 'samsung.com' },
@@ -35,6 +44,115 @@ const Register: React.FC = () => {
   const [personalName, setPersonalName] = useState('');
   const [personalEmail, setPersonalEmail] = useState('');
   const [personalPassword, setPersonalPassword] = useState('');
+
+  // 이메일 인증 시작 함수
+  const handleStartEmailVerification = () => {
+    const currentEmail = selected === 'personal' ? personalEmail : companyEmail;
+    
+    if (!currentEmail.trim()) {
+      alert('이메일을 입력해주세요.');
+      return;
+    }
+
+    console.log('이메일 인증 시작:', currentEmail);
+    setEmailToVerify(currentEmail);
+    setShowEmailModal(true);
+  };
+
+  // 이메일 인증 완료 처리
+  const handleEmailVerified = () => {
+    const currentEmail = selected === 'personal' ? personalEmail : companyEmail;
+    setIsEmailVerified(true);
+    setVerifiedEmail(currentEmail);
+    setShowEmailModal(false);
+    alert('이메일 인증이 완료되었습니다! 이제 회원가입을 진행할 수 있습니다.');
+  };
+
+  // 개인 회원가입 처리 함수
+  const handlePersonalRegister = async () => {
+    if (!personalName.trim() || !personalEmail.trim() || !personalPassword.trim()) {
+      alert('모든 필드를 입력해주세요.');
+      return;
+    }
+
+    if (!isEmailVerified || verifiedEmail !== personalEmail) {
+      alert('이메일 인증을 먼저 완료해주세요.');
+      return;
+    }
+
+    try {
+      await signUpPersonal({
+        userName: personalName,
+        email: personalEmail,
+        password: personalPassword,
+        userType: 'personal',
+      });
+      
+      alert('회원가입이 완료되었습니다! 로그인 페이지로 이동합니다.');
+      navigate('/login');
+    } catch (error: any) {
+      alert('회원가입 실패: ' + error.message);
+      console.error('개인 회원가입 오류:', error);
+    }
+  };
+
+  // 기업 회원가입 처리 함수
+  const handleCompanyRegister = async () => {
+    if (!name.trim() || !companyName.trim() || !companyEmail.trim() || !companyPassword.trim()) {
+      alert('모든 필드를 입력해주세요.');
+      return;
+    }
+
+    if (!isEmailVerified || verifiedEmail !== companyEmail) {
+      alert('이메일 인증을 먼저 완료해주세요.');
+      return;
+    }
+
+    try {
+      await signUpCompany({
+        userName: name,
+        companyName: companyName,
+        email: companyEmail,
+        password: companyPassword,
+        userType: 'company',
+      });
+      
+      alert('회원가입이 완료되었습니다! 로그인 페이지로 이동합니다.');
+      navigate('/login');
+    } catch (error: any) {
+      alert('회원가입 실패: ' + error.message);
+      console.error('기업 회원가입 오류:', error);
+    }
+  };
+
+  // 이메일 인증 모달 닫기
+  const handleCloseEmailModal = () => {
+    setShowEmailModal(false);
+    setEmailToVerify('');
+  };
+
+  // 이메일 변경 시 인증 상태 리셋
+  const handleEmailChange = (newEmail: string, type: 'personal' | 'company') => {
+    if (type === 'personal') {
+      setPersonalEmail(newEmail);
+      if (isEmailVerified && verifiedEmail !== newEmail) {
+        setIsEmailVerified(false);
+        setVerifiedEmail('');
+      }
+    } else {
+      setCompanyEmail(newEmail);
+      if (isEmailVerified && verifiedEmail !== newEmail) {
+        setIsEmailVerified(false);
+        setVerifiedEmail('');
+      }
+    }
+  };
+
+  // 현재 이메일이 인증되었는지 확인
+  const isCurrentEmailVerified = () => {
+    const currentEmail = selected === 'personal' ? personalEmail : companyEmail;
+    return isEmailVerified && verifiedEmail === currentEmail;
+  };
 
   // 기업 선택 후 값 자동 입력
   React.useEffect(() => {
@@ -71,8 +189,6 @@ const Register: React.FC = () => {
       mb: 1,
     },
   };
-
-  const navigate = useNavigate();
 
   return (
     <div
@@ -200,16 +316,9 @@ const Register: React.FC = () => {
                 fullWidth
                 margin="normal"
                 value={companyEmail}
-                onChange={e => setCompanyEmail(e.target.value)}
+                onChange={e => handleEmailChange(e.target.value, 'company')}
                 {...textFieldProps}
               />
-              <Typography
-                variant="body2"
-                sx={{ mb: 0, color: '#fff', textDecoration: 'underline', cursor: 'pointer', mt: 1, textAlign: 'right' }}
-                onClick={() => setCompanyEmailConfirm(true)}
-              >
-                이메일 인증
-              </Typography>
               <TextField
                 label="비밀번호"
                 type="password"
@@ -219,6 +328,29 @@ const Register: React.FC = () => {
                 onChange={e => setCompanyPassword(e.target.value)}
                 {...textFieldProps}
               />
+              
+              {/* 이메일 인증 버튼 */}
+              <Button 
+                variant="outlined" 
+                fullWidth 
+                disabled={!companyEmail.trim() || isCurrentEmailVerified()}
+                sx={{ 
+                  borderRadius: 2, 
+                  mt: 1, 
+                  mb: 1,
+                  borderColor: isCurrentEmailVerified() ? '#4CAF50' : '#FF9100',
+                  color: isCurrentEmailVerified() ? '#4CAF50' : '#FF9100',
+                  '&:hover': { 
+                    borderColor: isCurrentEmailVerified() ? '#4CAF50' : '#F57C00',
+                    backgroundColor: isCurrentEmailVerified() ? 'rgba(76, 175, 80, 0.1)' : 'rgba(255, 145, 0, 0.1)'
+                  },
+                  '&:disabled': { borderColor: '#666', color: '#666' }
+                }} 
+                onClick={handleStartEmailVerification}
+              >
+                {isCurrentEmailVerified() ? '✓ 이메일 인증 완료' : '이메일 인증하기'}
+              </Button>
+
               <Typography
                 variant="body2"
                 sx={{ mb: 2, color: '#fff', textDecoration: 'underline', cursor: 'pointer', mt: 1, textAlign: 'right' }}
@@ -226,7 +358,27 @@ const Register: React.FC = () => {
               >
                 내 기업 찾기
               </Typography>
-              <Button variant="contained" color="primary" fullWidth sx={{ borderRadius: 2, mt: 2, backgroundColor: '#FF9100', '&:hover': { backgroundColor: '#FF9100' }, '&:active': { backgroundColor: '#FF9100' } }} onClick={() => handleCompanyRegister(name, companyName, companyEmail, companyPassword, navigate)}>회원가입</Button>
+              
+              <Button 
+                variant="contained" 
+                color="primary" 
+                fullWidth 
+                disabled={!isCurrentEmailVerified()}
+                sx={{ 
+                  borderRadius: 2, 
+                  mt: 2, 
+                  backgroundColor: isCurrentEmailVerified() ? '#FF9100' : '#808080',
+                  '&:hover': { 
+                    backgroundColor: isCurrentEmailVerified() ? '#FF9100' : '#808080'
+                  }, 
+                  '&:active': { 
+                    backgroundColor: isCurrentEmailVerified() ? '#FF9100' : '#808080'
+                  }
+                }} 
+                onClick={handleCompanyRegister}
+              >
+                회원가입
+              </Button>
             </>
           )}
           {/* 기업 검색 UI */}
@@ -378,15 +530,64 @@ const Register: React.FC = () => {
               </Box>
               <Typography variant="h6" sx={{ mt: -2, color: '#fff', mb: 2, fontWeight: 600 }}>개인 회원가입</Typography>
               <TextField label="이름" name="name" value={personalName} onChange={e => setPersonalName(e.target.value)} fullWidth margin="normal" {...textFieldProps} />
-              <TextField label="이메일" value={personalEmail} onChange={e => setPersonalEmail(e.target.value)} fullWidth margin="normal" {...textFieldProps} />
+              <TextField label="이메일" value={personalEmail} onChange={e => handleEmailChange(e.target.value, 'personal')} fullWidth margin="normal" {...textFieldProps} />
               <TextField label="비밀번호" type="password" value={personalPassword} onChange={e => setPersonalPassword(e.target.value)} fullWidth margin="normal" {...textFieldProps} />
-              <Button variant="contained" color="primary" fullWidth sx={{ borderRadius: 2, mt: 2, backgroundColor: '#FF9100', '&:hover': { backgroundColor: '#FF9100' }, '&:active': { backgroundColor: '#FF9100' } }} onClick={() => handlePersonalRegister(personalName, personalEmail, personalPassword, navigate)}>회원가입</Button>
+              
+              {/* 이메일 인증 버튼 */}
+              <Button 
+                variant="outlined" 
+                fullWidth 
+                disabled={!personalEmail.trim() || isCurrentEmailVerified()}
+                sx={{ 
+                  borderRadius: 2, 
+                  mt: 1, 
+                  mb: 1,
+                  borderColor: isCurrentEmailVerified() ? '#4CAF50' : '#FF9100',
+                  color: isCurrentEmailVerified() ? '#4CAF50' : '#FF9100',
+                  '&:hover': { 
+                    borderColor: isCurrentEmailVerified() ? '#4CAF50' : '#F57C00',
+                    backgroundColor: isCurrentEmailVerified() ? 'rgba(76, 175, 80, 0.1)' : 'rgba(255, 145, 0, 0.1)'
+                  },
+                  '&:disabled': { borderColor: '#666', color: '#666' }
+                }} 
+                onClick={handleStartEmailVerification}
+              >
+                {isCurrentEmailVerified() ? '✓ 이메일 인증 완료' : '이메일 인증하기'}
+              </Button>
+              
+              <Button 
+                variant="contained" 
+                color="primary" 
+                fullWidth 
+                disabled={!isCurrentEmailVerified()}
+                sx={{ 
+                  borderRadius: 2, 
+                  mt: 2, 
+                  backgroundColor: isCurrentEmailVerified() ? '#FF9100' : '#808080',
+                  '&:hover': { 
+                    backgroundColor: isCurrentEmailVerified() ? '#FF9100' : '#808080',
+                  }, 
+                  '&:active': { 
+                    backgroundColor: isCurrentEmailVerified() ? '#FF9100' : '#808080',
+                  }
+                }} 
+                onClick={handlePersonalRegister}
+              >
+                회원가입
+              </Button>
             </>
           )}
     </Box>
   </Container>
+    {/* 이메일 인증 모달 */}
+    <EmailVerificationModal
+      open={showEmailModal}
+      onClose={handleCloseEmailModal}
+      email={emailToVerify}
+      onVerified={handleEmailVerified}
+    />
     </div>
-);
+  );
 };
 
 export default Register; 

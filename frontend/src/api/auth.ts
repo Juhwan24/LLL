@@ -14,12 +14,30 @@ export interface LoginResponse {
     token: string;
 }
 
+// 이메일 인증코드 전송 요청 타입
+export interface SendCodeRequest {
+  email: string;
+}
+
+// 이메일 인증코드 확인 요청 타입
+export interface VerifyCodeRequest {
+  email: string;
+  code: string;
+}
+
+// API 응답 타입
+export interface ApiResponse {
+  success: boolean;
+  message: string;
+  error?: string;
+}
+
 // 개인 회원가입 요청 타입
 export interface PersonalSignUpRequest {
-    userName: string;
-    email: string;
-    password: string;
-    userType: string;
+  userName: string;
+  email: string;
+  password: string;
+  userType: string;
 }
 
 // 기업 회원가입 요청 타입
@@ -52,6 +70,26 @@ export const loginUser = async (credentials: LoginRequest): Promise<LoginRespons
     return response.data;
   } catch (error: any) {
     throw new Error(error.response?.data?.message || '로그인에 실패했습니다.');
+  }
+};
+
+// 이메일 인증코드 전송 API
+export const sendVerificationCode = async (email: string): Promise<ApiResponse> => {
+  try {
+    const response = await apiClient.post<ApiResponse>('/api/auth/send-code', { email });
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.message || '인증코드 전송에 실패했습니다.');
+  }
+};
+
+// 이메일 인증코드 확인 API
+export const verifyCode = async (email: string, code: string): Promise<ApiResponse> => {
+  try {
+    const response = await apiClient.post<ApiResponse>('/api/auth/verify-code', { email, code });
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.message || '인증코드 확인에 실패했습니다.');
   }
 };
 

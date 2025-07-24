@@ -5,7 +5,7 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { Link, useNavigate } from 'react-router-dom';
-import { handleLogin } from '../routers/login';
+import { loginUser } from '../api/auth';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -14,6 +14,19 @@ const Login: React.FC = () => {
 
   // 버튼 활성화 조건: 이메일과 비밀번호가 모두 입력되었을 때
   const isButtonDisabled = !email.trim() || !password.trim();
+
+  // 로그인 처리 함수
+  const handleLogin = async (email: string, password: string) => {
+    try {
+      const response = await loginUser({ email, password });
+      
+      alert('로그인 성공!');
+      navigate('/main');
+    } catch (error: any) {
+      alert(error.message || '로그인에 실패했습니다.');
+      console.error('로그인 오류:', error);
+    }
+  };
 
   // TextField 공통 스타일 (Register와 동일)
   const textFieldProps = {
@@ -82,7 +95,7 @@ const Login: React.FC = () => {
           <Typography variant="h5" sx={{ textAlign: 'left', fontWeight: 600, mb: 3, color: '#fff' }}>
             로그인
           </Typography>
-          <form onSubmit={e => {e.preventDefault(); handleLogin(email, password, navigate);}}>
+          <form onSubmit={e => {e.preventDefault(); handleLogin(email, password);}}>
             <TextField label="이메일" name="email" value={email} onChange={e => setEmail(e.target.value)} variant="outlined" fullWidth margin="normal" required {...textFieldProps} />
             <TextField label="비밀번호" name="password" type="password" value={password} onChange={e => setPassword(e.target.value)} variant="outlined" fullWidth margin="normal" required {...textFieldProps} />
             <Button 
@@ -107,7 +120,7 @@ const Login: React.FC = () => {
                   color: '#999'
                 }
               }} 
-              onClick={() => !isButtonDisabled && handleLogin(email, password, navigate)}
+              onClick={() => !isButtonDisabled && handleLogin(email, password)}
             >
               로그인
             </Button>
