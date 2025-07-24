@@ -12,6 +12,7 @@ import com.hrm.hrm.dto.UserLoginRequest;
 import com.hrm.hrm.dto.UserLoginResponse;
 import com.hrm.hrm.util.JwtUtil;
 import com.hrm.hrm.dto.CompanySignUpRequest;
+import com.hrm.hrm.controller.AuthController;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -28,20 +29,30 @@ public class UserServiceImpl implements UserService {
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new IllegalArgumentException("이미 사용 중인 이메일입니다.");
         }
+        // 이메일 인증 여부 확인
+        if (!AuthController.verifiedEmails.contains(request.getEmail())) {
+            throw new IllegalArgumentException("이메일 인증이 필요합니다.");
+        }
         User user = User.createPersonalUser(
             request.getUserName(),
             request.getEmail(),
             passwordEncoder.encode(request.getPassword()),
             request.getUserType(),
-            false,
+            true, // 인증됨
             LocalDateTime.now()
         );
         userRepository.save(user);
+        // 회원가입 후 인증된 이메일 목록에서 제거
+        AuthController.verifiedEmails.remove(request.getEmail());
     }
 
     public void signUp(CompanySignUpRequest request) {
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new IllegalArgumentException("이미 사용 중인 이메일입니다.");
+        }
+        // 이메일 인증 여부 확인
+        if (!AuthController.verifiedEmails.contains(request.getEmail())) {
+            throw new IllegalArgumentException("이메일 인증이 필요합니다.");
         }
         User user = User.createCompanyUser(
             request.getName(),
@@ -49,10 +60,12 @@ public class UserServiceImpl implements UserService {
             request.getEmail(),
             passwordEncoder.encode(request.getPassword()),
             request.getUserType(),
-            false,
+            true, // 인증됨
             LocalDateTime.now()
         );
         userRepository.save(user);
+        // 회원가입 후 인증된 이메일 목록에서 제거
+        AuthController.verifiedEmails.remove(request.getEmail());
     }
 
     @Override

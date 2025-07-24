@@ -36,6 +36,21 @@ public class AuthController {
 
     private final Map<String, Credential> credentialStore = new HashMap<>();
 
+    // 인증코드 저장 (email -> code, 만료시간)
+    private final Map<String, CodeWithExpiry> codeStore = new HashMap<>();
+    // 인증된 이메일 저장
+    public static final Set<String> verifiedEmails = new HashSet<>();
+
+    // 인증코드+만료시간 저장용 내부 클래스
+    private static class CodeWithExpiry {
+        String code;
+        long expiry;
+        CodeWithExpiry(String code, long expiry) {
+            this.code = code;
+            this.expiry = expiry;
+        }
+    }
+
     @Autowired
     public AuthController(GmailService gmailService) {
         this.gmailService = gmailService;
@@ -92,7 +107,8 @@ public class AuthController {
     public Map<String, Object> sendCode(@RequestBody SendCodeRequest req) {
         String email = req.getEmail();
         String code = String.format("%06d", new Random().nextInt(999999));
-
+        long expiry = System.currentTimeMillis() + 3 * 60 * 1000; // 3분
+        codeStore.put(email, new CodeWithExpiry(code, expiry));
         Map<String, Object> res = new HashMap<>();
         try {
             Credential credential = credentialStore.get("user");
@@ -103,6 +119,36 @@ public class AuthController {
             res.put("success", false);
             res.put("error", e.getMessage());
         }
+        return res;
+    }
+
+    @Operation(summary = "이메일 인증코드 검증", description = "이메일과 인증코드를 받아 검증합니다.")
+    @PostMapping("/verify-code")
+    @ResponseBody
+    public Map<String, Object> verifyCode(@RequestBody SendCodeRequest req, @RequestParam("code") String code) {
+        String email = req.getEmail();
+        Map<String, Object> res = new HashMap<>();
+        CodeWithExpiry cwe = codeStore.get(email);
+        if (cwe == null) {
+            res.put("success", false);
+            res.put("error", "인증코드를 먼저 요청하세요.");
+            return res;
+        }
+        if (System.currentTimeMillis() > cwe.expiry) {
+            codeStore.remove(email);
+            res.put("success", false);
+            res.put("error", "인증코드가 만료되었습니다.");
+            return res;
+        }
+        if (!cwe.code.equals(code)) {
+            res.put("success", false);
+            res.put("error", "인증코드가 일치하지 않습니다.");
+            return res;
+        }
+        verifiedEmails.add(email);
+        codeStore.remove(email);
+        res.put("success", true);
+        res.put("message", "인증 성공");
         return res;
     }
 }
