@@ -164,7 +164,7 @@ const EmailVerificationModal: React.FC<EmailVerificationModalProps> = ({
             </Box>
           ) : (
             <Box sx={{ display: 'flex', flexDirection: 'column', py: 0 }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', mb : 2}}>
+              <Box sx={{ display: 'flex', alignItems: 'center', mb : 2, gap: 2}}>
                 <TextField
                   label="인증코드"
                   value={verificationCode}
@@ -178,10 +178,12 @@ const EmailVerificationModal: React.FC<EmailVerificationModalProps> = ({
                     style: { color: '#ccc' },
                   }}
                   sx={{
+
                     '& .MuiOutlinedInput-root': {
                       '& fieldset': { borderColor: '#555' },
                       '&:hover fieldset': { borderColor: '#FF9100' },
                       '&.Mui-focused fieldset': { borderColor: '#FF9100' },
+                    
                     },
                   }}
                 />
@@ -192,7 +194,7 @@ const EmailVerificationModal: React.FC<EmailVerificationModalProps> = ({
                 )}
               </Box>
 
-              <Box sx={{ display: 'flex', gap: 2}}>
+              <Box sx={{ display: 'flex', gap: 1, mb: 2}}>
                 <Button
                   variant="outlined"
                   onClick={handleSendCode}
@@ -211,7 +213,6 @@ const EmailVerificationModal: React.FC<EmailVerificationModalProps> = ({
                   onClick={handleVerifyCode}
                   disabled={verifying || !verificationCode.trim()}
                   sx={{
-                    borderRadius: '10px',
                     flex: 1,
                     backgroundColor: '#FF9100',
                     color: '#fff',

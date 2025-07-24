@@ -2,6 +2,7 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import LeftBar from '../components/LeftBar';
 import RightBar from '../components/RightBar';
+import SettingsModal from '../components/SettingsModal';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import SearchIcon from '@mui/icons-material/Search';
@@ -12,9 +13,18 @@ import { ChevronLeft } from '@mui/icons-material';
 
 const Main: React.FC = () => {
   const [isRightBarVisible, setIsRightBarVisible] = useState(true);
+  const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
 
   const toggleRightBar = () => {
     setIsRightBarVisible(!isRightBarVisible);
+  };
+
+  const openSettingsModal = () => {
+    setIsSettingsModalOpen(true);
+  };
+
+  const closeSettingsModal = () => {
+    setIsSettingsModalOpen(false);
   };
 
   return (
@@ -64,14 +74,32 @@ const Main: React.FC = () => {
 
             />
           </Box>
-          <Box sx={{ ml: 1.5,mr: 1.5, p: 1.5, display: 'flex', alignItems: 'center', borderRadius: '40px', background: '#222225', weight: 'auto', height: 'auto' }}>
+          <Box 
+            onClick={openSettingsModal}
+            sx={{ 
+              ml: 1.5,
+              mr: 1.5, 
+              p: 1.5, 
+              display: 'flex', 
+              alignItems: 'center', 
+              borderRadius: '40px', 
+              background: '#222225', 
+              weight: 'auto', 
+              height: 'auto',
+              cursor: 'pointer',
+              transition: 'background-color 0.2s ease',
+              '&:hover': {
+                backgroundColor: 'rgba(88, 101, 242, 0.1)',
+              }
+            }}
+          >
             <SettingsIcon sx={{ color: '#5865F2' }} />
           </Box>
           <Box sx={{ mr: 1.5, p: 1.5, display: 'flex', alignItems: 'center', borderRadius: '40px', background: '#222225', weight: 'auto', height: 'auto' }}>
             <NotificationsIcon sx={{ color: '#FE5C73' }} />
           </Box>
           <Box sx={{ mr: 3, display: 'flex', alignItems: 'center', borderRadius: '40px', background: '#222225', weight: 'auto', height: 'auto' }}>
-            <img src="/icon.png" alt="icon" style={{ width: '60px', height: '60px', borderRadius: '50%' }} />
+            <img src="/icon.png" alt="icon" style={{ width: '60px', height: '60px', borderRadius: '50%', cursor: 'pointer'}}  />
           </Box>
         </Box>
         </Box>
@@ -123,6 +151,12 @@ const Main: React.FC = () => {
           />
         </Box>
       )}
+
+      {/* 설정 모달 */}
+      <SettingsModal 
+        open={isSettingsModalOpen} 
+        onClose={closeSettingsModal} 
+      />
     </Box>
   );
 };

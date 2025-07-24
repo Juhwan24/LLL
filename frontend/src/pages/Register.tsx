@@ -65,7 +65,6 @@ const Register: React.FC = () => {
     setIsEmailVerified(true);
     setVerifiedEmail(currentEmail);
     setShowEmailModal(false);
-    alert('이메일 인증이 완료되었습니다! 이제 회원가입을 진행할 수 있습니다.');
   };
 
   // 개인 회원가입 처리 함수
@@ -87,8 +86,7 @@ const Register: React.FC = () => {
         password: personalPassword,
         userType: 'personal',
       });
-      
-      alert('회원가입이 완료되었습니다! 로그인 페이지로 이동합니다.');
+       
       navigate('/login');
     } catch (error: any) {
       alert('회원가입 실패: ' + error.message);
@@ -117,7 +115,7 @@ const Register: React.FC = () => {
         userType: 'company',
       });
       
-      alert('회원가입이 완료되었습니다! 로그인 페이지로 이동합니다.');
+      
       navigate('/login');
     } catch (error: any) {
       alert('회원가입 실패: ' + error.message);
@@ -361,18 +359,26 @@ const Register: React.FC = () => {
               
               <Button 
                 variant="contained" 
-                color="primary" 
                 fullWidth 
                 disabled={!isCurrentEmailVerified()}
                 sx={{ 
                   borderRadius: 2, 
                   mt: 2, 
+                  
                   backgroundColor: isCurrentEmailVerified() ? '#FF9100' : '#808080',
+                  color: '#fff',
+                  '&.MuiButton-root': {
+                    backgroundColor: isCurrentEmailVerified() ? '#FF9100' : '#808080',
+                  },
                   '&:hover': { 
-                    backgroundColor: isCurrentEmailVerified() ? '#FF9100' : '#808080'
+                    backgroundColor: isCurrentEmailVerified() ? '#F57C00' : '#808080'
                   }, 
                   '&:active': { 
-                    backgroundColor: isCurrentEmailVerified() ? '#FF9100' : '#808080'
+                    backgroundColor: isCurrentEmailVerified() ? '#E65100' : '#808080'
+                  },
+                  '&:disabled': {
+                    backgroundColor: '#666666 !important',
+                    color: '#999999 !important'
                   }
                 }} 
                 onClick={handleCompanyRegister}
@@ -557,18 +563,25 @@ const Register: React.FC = () => {
               
               <Button 
                 variant="contained" 
-                color="primary" 
                 fullWidth 
                 disabled={!isCurrentEmailVerified()}
                 sx={{ 
                   borderRadius: 2, 
                   mt: 2, 
                   backgroundColor: isCurrentEmailVerified() ? '#FF9100' : '#808080',
-                  '&:hover': { 
+                  color: '#fff',
+                  '&.MuiButton-root': {
                     backgroundColor: isCurrentEmailVerified() ? '#FF9100' : '#808080',
+                  },
+                  '&:hover': { 
+                    backgroundColor: isCurrentEmailVerified() ? '#F57C00' : '#808080'
                   }, 
                   '&:active': { 
-                    backgroundColor: isCurrentEmailVerified() ? '#FF9100' : '#808080',
+                    backgroundColor: isCurrentEmailVerified() ? '#E65100' : '#808080'
+                  },
+                  '&:disabled': {
+                    backgroundColor: '#666666 !important',
+                    color: '#999999 !important'
                   }
                 }} 
                 onClick={handlePersonalRegister}

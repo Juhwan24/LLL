@@ -20,7 +20,6 @@ const Login: React.FC = () => {
     try {
       const response = await loginUser({ email, password });
       
-      alert('로그인 성공!');
       navigate('/main');
     } catch (error: any) {
       alert(error.message || '로그인에 실패했습니다.');
