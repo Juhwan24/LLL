@@ -182,7 +182,7 @@ const Main: React.FC = () => {
         flexDirection: 'column'
       }}>
         {/* 헤더 */}
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', height: '10%', background: '#1A1A1E', borderBottom: '2px solid #222225', px: 3 }}>
+        <Box sx={{ zIndex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', height: '10%', background: '#1A1A1E', borderBottom: '1px solid #222225', px: 3 }}>
           <Typography sx={{ color: '#94959C', fontSize: 28, fontFamily: 'Inter', fontWeight: '100' }}>
             MEMBERS
           </Typography>
@@ -256,8 +256,8 @@ const Main: React.FC = () => {
         </Box>
 
         {/* 프로젝트 탭 */}
-        <Box sx={{ px: 3, py: 2, borderBottom: '1px solid #222225' }}>
-          <Box sx={{ display: 'flex', gap: 1 }}>
+        <Box sx={{ px: 5 }}>
+          <Box sx={{ display: 'flex', gap: 2 }}>
             {projects.map((project) => (
               <Chip
                 key={project}
@@ -265,11 +265,16 @@ const Main: React.FC = () => {
                 clickable
                 onClick={() => setSelectedProject(project)}
                 sx={{
+                  zIndex: 0,
+                  mt: -1,
+                  minWidth: '70px',
+                  borderRadius: '0px 0px 10px 10px',
                   backgroundColor: selectedProject === project ? '#5865F2' : '#333',
                   color: selectedProject === project ? '#fff' : '#94959C',
-                  borderRadius: '20px',
                   '&:hover': {
-                    backgroundColor: selectedProject === project ? '#4752C4' : '#444',
+                    transform: 'translateY(5px)',
+                    transition: 'transform 0.2s ease-in-out',
+                    backgroundColor: selectedProject === project ? '#4752C4' : '#333',
                   },
                 }}
               />
