@@ -16,7 +16,7 @@ const Register: React.FC = () => {
   const [newCompanyName, setNewCompanyName] = useState('');
   const [newCompanyEmail, setNewCompanyEmail] = useState('');
   const [newCompanyOwner, setNewCompanyOwner] = useState('');
-
+  const [companyEmailConfirm, setCompanyEmailConfirm] = useState(false);
   // 예시 기업 리스트
   const companyList = [
     { name: '삼성전자', domain: 'samsung.com' },
@@ -203,6 +203,13 @@ const Register: React.FC = () => {
                 onChange={e => setCompanyEmail(e.target.value)}
                 {...textFieldProps}
               />
+              <Typography
+                variant="body2"
+                sx={{ mb: 0, color: '#fff', textDecoration: 'underline', cursor: 'pointer', mt: 1, textAlign: 'right' }}
+                onClick={() => setCompanyEmailConfirm(true)}
+              >
+                이메일 인증
+              </Typography>
               <TextField
                 label="비밀번호"
                 type="password"

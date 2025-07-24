@@ -12,6 +12,9 @@ const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  // 버튼 활성화 조건: 이메일과 비밀번호가 모두 입력되었을 때
+  const isButtonDisabled = !email.trim() || !password.trim();
+
   // TextField 공통 스타일 (Register와 동일)
   const textFieldProps = {
     InputProps: {
@@ -82,7 +85,30 @@ const Login: React.FC = () => {
           <form onSubmit={e => {e.preventDefault(); handleLogin(email, password, navigate);}}>
             <TextField label="이메일" name="email" value={email} onChange={e => setEmail(e.target.value)} variant="outlined" fullWidth margin="normal" required {...textFieldProps} />
             <TextField label="비밀번호" name="password" type="password" value={password} onChange={e => setPassword(e.target.value)} variant="outlined" fullWidth margin="normal" required {...textFieldProps} />
-            <Button type="submit" variant="contained" color="primary" fullWidth sx={{ borderRadius: 2, mb:2, mt: 2, backgroundColor: '#FF9100', '&:hover': { backgroundColor: '#FF9100' }, '&:active': { backgroundColor: '#FF9100' }}} onClick={() => handleLogin(email, password, navigate)}>
+            <Button 
+              type="submit" 
+              variant="contained" 
+              color="primary" 
+              fullWidth 
+              disabled={isButtonDisabled}
+              sx={{ 
+                borderRadius: 2, 
+                mb: 2, 
+                mt: 2, 
+                backgroundColor: isButtonDisabled ? '#666' : '#FF9100', 
+                '&:hover': { 
+                  backgroundColor: isButtonDisabled ? '#666' : '#FF9100' 
+                }, 
+                '&:active': { 
+                  backgroundColor: isButtonDisabled ? '#666' : '#FF9100' 
+                },
+                '&.Mui-disabled': {
+                  backgroundColor: '#666',
+                  color: '#999'
+                }
+              }} 
+              onClick={() => !isButtonDisabled && handleLogin(email, password, navigate)}
+            >
               로그인
             </Button>
             <Typography variant="body2" sx={{ textAlign: 'center', mt: 2, color: '#fff' }}>
