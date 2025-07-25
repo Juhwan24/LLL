@@ -1,12 +1,14 @@
-package com.hrm.hrm.dto;
+package com.hrm.hrm.auth.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.Value;
 
-@Getter
-@Setter
+@Value
+@Builder
 @AllArgsConstructor
 public class GptResponse {
-    private String result;
+    String result;
 } 

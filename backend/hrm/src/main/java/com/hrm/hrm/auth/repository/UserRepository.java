@@ -1,4 +1,4 @@
-package com.hrm.hrm.repository;
+package com.hrm.hrm.auth.repository;
 
 import com.hrm.hrm.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;

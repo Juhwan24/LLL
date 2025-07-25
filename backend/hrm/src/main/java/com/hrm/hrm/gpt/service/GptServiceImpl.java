@@ -1,7 +1,7 @@
-package com.hrm.hrm.service;
+package com.hrm.hrm.gpt.service;
 
-import com.hrm.hrm.dto.GptRequest;
-import com.hrm.hrm.dto.GptResponse;
+import com.hrm.hrm.auth.dto.GptRequest;
+import com.hrm.hrm.auth.dto.GptResponse;
 import com.theokanning.openai.completion.CompletionRequest;
 import com.theokanning.openai.service.OpenAiService;
 import org.springframework.beans.factory.annotation.Autowired;

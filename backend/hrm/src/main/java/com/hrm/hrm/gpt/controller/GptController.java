@@ -1,8 +1,8 @@
-package com.hrm.hrm.controller;
+package com.hrm.hrm.gpt.controller;
 
-import com.hrm.hrm.dto.GptRequest;
-import com.hrm.hrm.dto.GptResponse;
-import com.hrm.hrm.service.GptService;
+import com.hrm.hrm.auth.dto.GptRequest;
+import com.hrm.hrm.auth.dto.GptResponse;
+import com.hrm.hrm.gpt.service.GptService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

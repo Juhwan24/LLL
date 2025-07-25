@@ -1,4 +1,4 @@
-package com.hrm.hrm.service;
+package com.hrm.hrm.auth.service;
 
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
