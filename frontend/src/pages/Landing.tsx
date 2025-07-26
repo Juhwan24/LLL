@@ -76,7 +76,7 @@ const Landing: React.FC = () => {
                     ABOUT US
                   </Typography>
                   <Typography variant="h6" sx={{ color: '#444' }}>
-                    김주환, 그는 신이야
+                    모든 것을 재구축한다.
                   </Typography>
                 </>
               )}
