@@ -76,7 +76,7 @@ const Landing: React.FC = () => {
                     ABOUT US
                   </Typography>
                   <Typography variant="h6" sx={{ color: '#444' }}>
-                    씨@발 이거 뭐라 소개하노
+                    고대 세종 LLL
                   </Typography>
                 </>
               )}
