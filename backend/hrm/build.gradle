@@ -31,6 +31,7 @@ dependencies {
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
 	implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
 	implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+	
 	// GPT API
 	implementation 'com.theokanning.openai-gpt3-java:service:0.18.2'
 
@@ -44,6 +45,24 @@ dependencies {
 
 	// JacksonFactory
 	implementation 'com.google.http-client:google-http-client-jackson2:1.43.3'
+	
+	// AI Pipeline Support
+	implementation 'org.springframework.boot:spring-boot-starter-cache'
+	implementation 'org.springframework.data:spring-data-redis'
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	implementation 'org.springframework.retry:spring-retry'
+	implementation 'org.springframework:spring-aspects' // @Retryable 지원
+	
+	// 비동기 처리 및 메시지 큐 (선택사항 - 나중에 활성화)
+	// implementation 'org.springframework.boot:spring-boot-starter-amqp'
+	
+	// 메트릭 및 모니터링
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'io.micrometer:micrometer-registry-prometheus'
+	
+	// JSON 처리 강화
+	implementation 'com.fasterxml.jackson.core:jackson-databind'
+	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
 
 	// Servlet API (was: providedCompile)
 	compileOnly 'jakarta.servlet:jakarta.servlet-api:6.0.0'

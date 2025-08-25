@@ -1,0 +1,30 @@
+# AI 파이프라인 환경변수 예시 파일
+# 실제 사용시 .env 파일을 생성하고 실제 값을 입력하세요
+
+# OpenAI 설정
+OPENAI_API_KEY=your_openai_api_key_here
+OPENAI_MODEL_COST_EFFECTIVE=gpt-3.5-turbo
+OPENAI_MODEL_HIGH_PERFORMANCE=gpt-4o
+
+# 한국어 NLP 설정
+KOREAN_NLP_ENGINE=openai  # openai, konlpy, hybrid
+
+# 처리 제한
+MAX_TEXT_LENGTH=1000
+MAX_TOKENS=500
+
+# 신뢰도 임계값
+SENTIMENT_CONFIDENCE_THRESHOLD=0.7
+TAG_CONFIDENCE_THRESHOLD=0.6
+
+# 재시도 설정
+MAX_RETRY_ATTEMPTS=3
+RETRY_DELAY_SECONDS=1
+
+# 로깅 설정
+LOG_LEVEL=INFO
+STRUCTURED_LOGGING=true
+
+# 모니터링 설정
+ENABLE_METRICS=true
+METRICS_PORT=8080
