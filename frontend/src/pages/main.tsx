@@ -25,17 +25,17 @@ const teamMembers = [
   {
     id: 2,
     name: '허진우',
-    position: 'Big Dick',
-    role: '왕자',
+    position: 'Backend',
+    role: 'PM',
     email: 'simonadhd@gmail.com',
-    specialty: 'ahegao',
+    specialty: 'Git, Figma',
     avatar: '/jinu.png',
     project: 'project1'
   },
   {
     id: 3,
     name: '양지수',
-    position: 'Designer',
+    position: 'Frontend',
     role: '디자이너',
     email: 'sujisu@gmail.com',
     specialty: 'Figma, Sketch',
@@ -65,7 +65,7 @@ const teamMembers = [
   {
     id: 6,
     name: '이지은',
-    position: 'Cheerleader',
+    position: 'UI/UX Designer',
     role: '예쁜 여자',
     email: 'jieun.lee@gmail.com',
     specialty: 'beautiful',
