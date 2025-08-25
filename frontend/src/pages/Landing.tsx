@@ -76,7 +76,7 @@ const Landing: React.FC = () => {
                     ABOUT US
                   </Typography>
                   <Typography variant="h6" sx={{ color: '#444' }}>
-                    김주환, 그는 신이야
+                    씨@발 이거 뭐라 소개하노
                   </Typography>
                 </>
               )}
@@ -86,7 +86,7 @@ const Landing: React.FC = () => {
                     서비스 소개
                   </Typography>
                   <Typography variant="body1" sx={{ color: '#ffffff' }}>
-                    허진우의 염원이 담긴, 사랑의 집합체
+                    사람이 잘할 수 있는 일에 집중할 때, 조직도 더 강해진다고 믿습니다
                   </Typography>
                 </>
               )}
